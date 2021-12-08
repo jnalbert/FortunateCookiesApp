@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "FortunateCookies",
-    "slug": "FortunateCookies",
+    "name": "Fortunate Cookies",
+    "slug": "fortunatecookies",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/SmallLogo.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/OfficialLogo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffffe"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -17,16 +17,16 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/SmallLogo.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/SmallLogo.png"
     }
   }
 }
