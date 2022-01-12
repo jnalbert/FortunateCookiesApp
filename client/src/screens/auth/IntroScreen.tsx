@@ -1,11 +1,20 @@
 import React, { FC } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
+import styled from 'styled-components/native';
+import ScreenWrapperComp from '../../shared/ScreenWrapperComp';
+
+const WrapperView = styled.View`
+  flex: 1;
+  justify-content: center;
+`
 
 const IntroScreen: FC = () => {
   return (
-    <View>
-      
-    </View>
+    <ScreenWrapperComp>
+      <WrapperView>
+        <Text>This is the home</Text>
+      </WrapperView>
+    </ScreenWrapperComp>
   )
 }
 

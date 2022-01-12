@@ -1,0 +1,30 @@
+export const backgroundColor = "#fffffffe"
+
+export const Pink = "#FF70A0"
+
+export const Teal = "#53CACA"
+
+export const Yellow = "#FFF799"
+
+export const Green = "#9DE7B3"
+
+export const Purple = "#E0C0FF"
+
+export const Black = "#181D2D"
+
+export const Text500 = "#1D232E"
+
+export const Text400 = "#5D6470"
+
+export const Text300 = "#A7B0C0"
+
+export const Text200 = "#E7ECF3"
+
+export const Text100 = "#F8FAFD"
+
+export const borderColor = "#E7ECF3"
+
+export const backgroundGray = "#F8FAFD"
+
+export const logoutRed = "#F85149"
+

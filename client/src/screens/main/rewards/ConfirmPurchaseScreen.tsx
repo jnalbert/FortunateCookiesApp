@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
 
-const AllRewards: FC = () => {
+const ConfirmPurchaseScreen: FC = () => {
   return (
     <View>
       
@@ -9,4 +9,4 @@ const AllRewards: FC = () => {
   )
 }
 
-export default AllRewards
+export default ConfirmPurchaseScreen

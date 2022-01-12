@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
-import { View } from 'react-native';
+import { View,Text } from 'react-native';
+import ScreenWrapperComp from '../../shared/ScreenWrapperComp';
 
 const ForgotPasswordScreen: FC = () => {
   return (
-    <View>
-      
-    </View>
+    <ScreenWrapperComp>
+      <Text>This is the Forgot Password Screen</Text>
+    </ScreenWrapperComp>
   )
 }
 
