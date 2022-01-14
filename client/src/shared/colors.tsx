@@ -28,3 +28,10 @@ export const backgroundGray = "#F8FAFD"
 
 export const logoutRed = "#F85149"
 
+export const FrankFurter = "Frankfurter"
+
+export const Poppins = "Poppins"
+
+export const SourceSerif = "SourceSerif"
+
+export const Nunito = "Nunito"
