@@ -37,7 +37,7 @@ const RewardsNavigator: FC = () => {
       />
 
       <Stack.Screen
-        name="All Rewards"
+        name="AllRewards"
         component={AllRewardsScreen}
         options={{
           headerTitle: () => <StackHeader name="All Rewards" />,
@@ -46,7 +46,7 @@ const RewardsNavigator: FC = () => {
       />
 
       <Stack.Screen
-        name="Scan Purchase"
+        name="ScanPurchase"
         component={ScanPurchaseScreen}
         options={{
           headerTitle: () => <StackHeader name="" />,
@@ -55,7 +55,7 @@ const RewardsNavigator: FC = () => {
       />
 
       <Stack.Screen
-        name="Confirm Purchase"
+        name="ConfirmPurchase"
         component={ConfirmPurchaseScreen}
         options={{
           headerTitle: () => <StackHeader name="" />,

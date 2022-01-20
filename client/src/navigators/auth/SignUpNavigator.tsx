@@ -19,7 +19,7 @@ const SignUpNavigator: FC = () => {
       }}
     >
       <Stack.Screen
-        name="Sign Up"
+        name="SignUp"
         component={SignUpScreen}
         options={{
           headerTitle: () => <StackHeader name="" />,

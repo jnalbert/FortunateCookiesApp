@@ -43,8 +43,8 @@ const MainTabNavigator: FC = () => {
     >
       <Tab.Screen name="DashBoard" component={DashBoardScreen} />
       <Tab.Screen name="Shop" component={ShopScreen} />
-      <Tab.Screen name="Rewards" component={RewardsNavigator} />
-      <Tab.Screen name="Settings" component={SettingsNavigator} />
+      <Tab.Screen name="RewardsNav" component={RewardsNavigator} />
+      <Tab.Screen name="SettingsNav" component={SettingsNavigator} />
     </Tab.Navigator>
   )
 }

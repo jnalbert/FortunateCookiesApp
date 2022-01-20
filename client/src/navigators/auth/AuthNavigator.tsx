@@ -36,20 +36,20 @@ const AuthNavigator: FC = () => {
       />
 
       <Stack.Screen
-        name="Sign Up"
+        name="SignUpNav"
         component={SignUpNavigator}
         options={{
           headerTitle: () => <StackHeader name="" />,
-          // headerShown: false
+          headerShown: false
         }}
       />
 
       <Stack.Screen
-        name="Login"
+        name="LoginNav"
         component={LoginNavigator}
         options={{
           headerTitle: () => <StackHeader name="" />,
-          // headerShown: false
+          headerShown: false
         }}
       />
     </Stack.Navigator>

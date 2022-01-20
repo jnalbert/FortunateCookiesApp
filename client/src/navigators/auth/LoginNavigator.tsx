@@ -35,7 +35,7 @@ const LoginNavigator: FC = () => {
       />
 
       <Stack.Screen
-        name="Forgot Password"
+        name="ForgotPassword"
         component={ForgotPasswordScreen}
         options={{
           headerTitle: () => <StackHeader name="" />,
@@ -44,7 +44,7 @@ const LoginNavigator: FC = () => {
       />
 
       <Stack.Screen
-        name="Forgot Password Steps"
+        name="ForgotPasswordSteps"
         component={ForgotPasswordStepsScreen}
         options={{
           headerTitle: () => <StackHeader name="" />,

@@ -34,7 +34,7 @@ const SettingsNavigator: FC = () => {
       />
 
       <Stack.Screen
-        name="Change Password"
+        name="ChangePassword"
         component={ChangePasswordScreen}
         options={{
           headerTitle: () => <StackHeader name="Change Password" />,
