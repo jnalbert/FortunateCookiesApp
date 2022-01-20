@@ -9,9 +9,6 @@ import { useFonts } from 'expo-font';
 import AppLoading from "expo-app-loading";
 import { Poppins_400Regular } from "@expo-google-fonts/poppins";
 
-
-
-
 const AppWrapperView = styled.View`
   flex: 1;
 `;
