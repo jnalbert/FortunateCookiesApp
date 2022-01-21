@@ -79,7 +79,7 @@ const IntroScreen: FC = () => {
   const navigator: any = useNavigation();
   
   const onPressForward = () => { 
-    navigator.navigate("SignUpNav");
+    navigator.navigate("SignInNav");
     // console.log("here")
   }
 

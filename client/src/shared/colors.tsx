@@ -22,7 +22,7 @@ export const Text200 = "#E7ECF3"
 
 export const Text100 = "#F8FAFD"
 
-export const borderColor = "#E7ECF3"
+export const borderColor = "#C1C7D0"
 
 export const backgroundGray = "#F8FAFD"
 

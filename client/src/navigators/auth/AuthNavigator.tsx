@@ -45,7 +45,7 @@ const AuthNavigator: FC = () => {
       />
 
       <Stack.Screen
-        name="LoginNav"
+        name="SignInNav"
         component={LoginNavigator}
         options={{
           headerTitle: () => <StackHeader name="" />,

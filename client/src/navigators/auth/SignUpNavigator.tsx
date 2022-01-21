@@ -7,6 +7,7 @@ import StackHeader from '../../shared/StackHeader/StackHeader';
 import TosScreen from '../../screens/auth/TosScreen';
 import SignUpScreen from '../../screens/auth/SignUpScreen';
 
+
 const Stack = createStackNavigator();
 
 const SignUpNavigator: FC = () => {
