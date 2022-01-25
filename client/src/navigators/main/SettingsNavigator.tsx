@@ -29,7 +29,7 @@ const SettingsNavigator: FC = () => {
         component={ProfileScreen}
         options={{
           headerTitle: () => <StackHeader name="Profile" />,
-          // headerShown: false,
+          headerShown: false,
         }}
       />
 

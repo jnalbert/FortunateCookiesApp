@@ -17,34 +17,37 @@ const MainTabNavigator: FC = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        activeTintColor: Teal,
-        inactiveTintColor: Black,
-        showLabel: false,
-        tabStyle: {paddingTop: 17},
-        tabBarIcon: ({color}) => {
+        tabBarActiveTintColor: Teal,
+        tabBarInactiveTintColor: Black,
+        tabBarShowLabel: false,
+        tabBarItemStyle: { paddingTop: "2.5%"},
+        tabBarStyle: { height: "10%" },
+        tabBarIcon: ({ color }) => {
 
           if (route.name === "DashBoard") {
-            return  <Octicons name="home" size={24} color={color} />
+            return <Octicons name="home" size={30} color={color} />
           }
           if (route.name === "Shop") {
-            return <AntDesign name="shoppingcart" size={24} color={color} />
-          }
-          if (route.name === "Rewards") {
-            <SimpleLineIcons name="present" size={24} color={color} />
+            return <AntDesign name="shoppingcart" size={30} color={color} />
           }
           
-          return <AntDesign name="user" size={24} color={color} />
+          if (route.name === "RewardsNav") {
+            return <SimpleLineIcons name="present" size={30} color={color} />
+          }
+        
+          return <AntDesign name="user" size={30} color={color} />
 
         }
         
       })}
+      
      
       
     >
-      <Tab.Screen name="DashBoard" component={DashBoardScreen} />
+      <Tab.Screen options={{ headerTitle: "Dash Board"}} name="DashBoard" component={DashBoardScreen} />
       <Tab.Screen name="Shop" component={ShopScreen} />
-      <Tab.Screen name="RewardsNav" component={RewardsNavigator} />
-      <Tab.Screen name="SettingsNav" component={SettingsNavigator} />
+      <Tab.Screen options={{ headerTitle: "Rewards"}} name="RewardsNav" component={RewardsNavigator} />
+      <Tab.Screen options={{ headerTitle: "Settings"}} name="SettingsNav" component={SettingsNavigator} />
     </Tab.Navigator>
   )
 }

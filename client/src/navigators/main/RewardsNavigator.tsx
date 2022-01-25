@@ -32,7 +32,7 @@ const RewardsNavigator: FC = () => {
         component={RewardsScreen}
         options={{
           headerTitle: () => <StackHeader name="Rewards" />,
-          // headerShown: false,
+          headerShown: false,
         }}
       />
 
