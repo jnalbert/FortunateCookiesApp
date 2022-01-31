@@ -1,11 +1,16 @@
 import React, { FC } from 'react';
-import { View } from 'react-native';
+import { Linking, View } from 'react-native';
 import ScreenWrapperComp from '../../shared/ScreenWrapperComp';
 import styled from 'styled-components/native';
-import { Black, FrankFurter, Nunito, Poppins } from '../../shared/colors';
+import { Black, FrankFurter, Nunito, Pink, Poppins, Teal, Yellow } from '../../shared/colors';
 import NewsSection, { SectionHeader } from '../../components/mainComps/Dashboard/NewsSection';
 import { SectionHeaderWrapper } from '../../components/mainComps/Dashboard/NewsSection';
 import CookieGallery from '../../components/mainComps/Dashboard/CookieGallery';
+import ContactUsComp from '../../components/mainComps/Dashboard/ContactUsComp';
+
+import { AntDesign } from '@expo/vector-icons'; 
+
+
 
 const TopImageWrapper = styled.View`
   width: 115%;
@@ -53,8 +58,33 @@ const BodyText = styled.Text`
   margin-left: 6px;
 `
 
+const SocialMediaButtonsWrapper = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 15px;
+`
+
+const SocialMediaButton = styled.TouchableOpacity`
+
+`
+
+const SocialMediaImage = styled.Image`
+  width: 60px;
+  height: 60px;
+`
+
+const SectionPadding = styled.View`
+  height: 35px;
+`
 
 const DashBoardScreen: FC = () => {
+
+  const loadInBrowser = (url: string) => {
+    Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
+    return;
+  };
+
   return (
     <ScreenWrapperComp scrollView>
       <TopImageWrapper>
@@ -77,8 +107,29 @@ const DashBoardScreen: FC = () => {
         Fortunate Cookies looks to reinvent the out-of-touch fortunate cookie designs by putting a new age spin on an old sweet treat. We provide our customers with fun and interesting experiences through both helpful fortunes and pieces of advice. Upon opening our delicious sweet treats, you will feel no other option but to crack open a smile.
         </BodyText>
       </SectionWrapper>
-
       <CookieGallery/>
+
+      <ContactUsComp />
+
+      <SectionWrapper>
+        <SectionHeaderWrapper>
+          <SectionHeader>Our Company</SectionHeader>
+        </SectionHeaderWrapper>
+        <SocialMediaButtonsWrapper>
+          <SocialMediaButton onPress={() => {loadInBrowser("https://www.instagram.com/fortunatecookies.vei/")}}>
+            <AntDesign name="instagram" size={60} color={Yellow} />
+          </SocialMediaButton>
+
+          <SocialMediaButton onPress={() => {loadInBrowser("https://twitter.com/crackopenasmile")}}>
+            <AntDesign name="twitter" size={60} color={Teal} />
+          </SocialMediaButton>
+
+          <SocialMediaButton onPress={() => {loadInBrowser("https://www.tiktok.com/@fortunatecookies.vei")}}>
+            <SocialMediaImage source={require("../../../assets/tikTokLogo.png")} style={{height: 58, width: 58}} />
+          </SocialMediaButton>
+        </SocialMediaButtonsWrapper>
+      </SectionWrapper>
+      <SectionPadding></SectionPadding>
     </ScreenWrapperComp>
   )
 }

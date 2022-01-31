@@ -7,7 +7,7 @@ import { Nunito_400Regular, Nunito_700Bold } from '@expo-google-fonts/nunito'
 import {SourceSerifPro_400Regular} from '@expo-google-fonts/source-serif-pro'
 import { useFonts } from 'expo-font';
 import AppLoading from "expo-app-loading";
-import { Poppins_400Regular } from "@expo-google-fonts/poppins";
+import { Poppins_400Regular, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
 import {AuthContext, AuthContextFunctionTypes, authReducer, AuthTypes, getTokenAsync, useMemoFunction, _deleteStoredUuid } from './src/AppContext';
 import MainTabNavigator from "./src/navigators/main/MainTabNavigator";
 
@@ -31,6 +31,7 @@ const App: FC<any> = () => {
     "Nunito": Nunito_400Regular,
     "Poppins": Poppins_400Regular,
     "Frankfurter": require("./assets/fonts/Frankfurter-Std-Regular.otf"),
+    "PoppinsBold": Poppins_600SemiBold,
   });
 
   useEffect(() => {
