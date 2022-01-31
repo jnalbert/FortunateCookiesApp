@@ -4,18 +4,18 @@ import styled from "styled-components/native";
 import { Black, FrankFurter } from "../../../shared/colors";
 import NewsCard, { DataTypeNewsCard } from "./NewsCard";
 
-const OverallSectionWrapper = styled.View`
+export const OverallSectionWrapper = styled.View`
   width: 100%;
   /* background-color: #f8e5e5; */
   margin-top: 4%;
 `;
 
-const SectionHeaderWrapper = styled.View`
+export const SectionHeaderWrapper = styled.View`
   align-items: flex-start;
   padding-bottom: 3%;
 `;
 
-const SectionHeader = styled.Text`
+export const SectionHeader = styled.Text`
   font-family: ${FrankFurter};
   font-size: 32px;
   line-height: 48px;
@@ -23,7 +23,7 @@ const SectionHeader = styled.Text`
   color: ${Black};
 `;
 
-const NewsSliderWrapper = styled.ScrollView`
+export const NewsSliderWrapper = styled.ScrollView`
   flex-direction: row;
   /* align-items: center; */
 `;

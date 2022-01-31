@@ -2,8 +2,10 @@ import React, { FC } from 'react';
 import { View } from 'react-native';
 import ScreenWrapperComp from '../../shared/ScreenWrapperComp';
 import styled from 'styled-components/native';
-import { Black, FrankFurter, Nunito } from '../../shared/colors';
-import NewsSection from '../../components/mainComps/Dashboard/NewsSection';
+import { Black, FrankFurter, Nunito, Poppins } from '../../shared/colors';
+import NewsSection, { SectionHeader } from '../../components/mainComps/Dashboard/NewsSection';
+import { SectionHeaderWrapper } from '../../components/mainComps/Dashboard/NewsSection';
+import CookieGallery from '../../components/mainComps/Dashboard/CookieGallery';
 
 const TopImageWrapper = styled.View`
   width: 115%;
@@ -36,6 +38,20 @@ const TopOverlayText = styled.Text`
   letter-spacing: -1.5px;
 `
 
+const SectionWrapper = styled.View`
+  width: 100%;
+  /* background-color: #f8e5e5; */
+  margin-top: 6%;
+`
+
+const BodyText = styled.Text`
+  font-family: ${Poppins};
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+  color: ${Black};
+  margin-left: 6px;
+`
 
 
 const DashBoardScreen: FC = () => {
@@ -52,7 +68,17 @@ const DashBoardScreen: FC = () => {
       </TopImageWrapper>
 
       <NewsSection />
-      
+
+      <SectionWrapper>
+        <SectionHeaderWrapper>
+          <SectionHeader>Our Company</SectionHeader>
+        </SectionHeaderWrapper>
+        <BodyText>
+        Fortunate Cookies looks to reinvent the out-of-touch fortunate cookie designs by putting a new age spin on an old sweet treat. We provide our customers with fun and interesting experiences through both helpful fortunes and pieces of advice. Upon opening our delicious sweet treats, you will feel no other option but to crack open a smile.
+        </BodyText>
+      </SectionWrapper>
+
+      <CookieGallery/>
     </ScreenWrapperComp>
   )
 }
