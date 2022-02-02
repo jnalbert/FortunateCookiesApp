@@ -10,9 +10,9 @@ const HeaderContainer = styled.View`
 
 const HeaderText = styled.Text`
   font-size: 20px
-  line-height: 28px;
+  /* line-height: 28px; */
   text-align: center;
-  letter-spacing: -1px;
+  /* letter-spacing: -1px; */
 `
 
 interface StackHeaderProps {

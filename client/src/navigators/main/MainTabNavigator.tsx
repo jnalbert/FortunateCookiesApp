@@ -46,8 +46,8 @@ const MainTabNavigator: FC = () => {
     >
       <Tab.Screen options={{ headerTitle: "Dash Board"}} name="DashBoard" component={DashBoardScreen} />
       <Tab.Screen name="Shop" component={ShopScreen} />
-      <Tab.Screen options={{ headerTitle: "Rewards"}} name="RewardsNav" component={RewardsNavigator} />
-      <Tab.Screen options={{ headerTitle: "Settings"}} name="SettingsNav" component={SettingsNavigator} />
+      <Tab.Screen options={{ headerTitle: "Rewards", headerShown: false }} name="RewardsNav" component={RewardsNavigator} />
+      <Tab.Screen options={{ headerTitle: "Profile", headerShown: false}} name="SettingsNav" component={SettingsNavigator} />
     </Tab.Navigator>
   )
 }

@@ -31,8 +31,8 @@ const RewardsNavigator: FC = () => {
         name="Rewards"
         component={RewardsScreen}
         options={{
-          headerTitle: () => <StackHeader name="Rewards" />,
-          headerShown: false,
+          headerTitle: "Rewards",
+          // headerShown: false,
         }}
       />
 
@@ -40,7 +40,7 @@ const RewardsNavigator: FC = () => {
         name="AllRewards"
         component={AllRewardsScreen}
         options={{
-          headerTitle: () => <StackHeader name="All Rewards" />,
+          headerTitle: "All Rewards",
           // headerShown: false,
         }}
       />
@@ -50,7 +50,7 @@ const RewardsNavigator: FC = () => {
         component={ScanPurchaseScreen}
         options={{
           headerTitle: () => <StackHeader name="" />,
-          // headerShown: false,
+          headerShown: false,
         }}
       />
 
@@ -59,7 +59,7 @@ const RewardsNavigator: FC = () => {
         component={ConfirmPurchaseScreen}
         options={{
           headerTitle: () => <StackHeader name="" />,
-          // headerShown: false,
+          headerShown: false,
         }}
       />
 

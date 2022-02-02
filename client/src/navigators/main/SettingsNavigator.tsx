@@ -28,8 +28,9 @@ const SettingsNavigator: FC = () => {
         name="Profile"
         component={ProfileScreen}
         options={{
-          headerTitle: () => <StackHeader name="Profile" />,
-          headerShown: false,
+          headerTitle: "Profile",
+          headerStyle: {}
+          // headerShown: false,
         }}
       />
 
@@ -37,7 +38,7 @@ const SettingsNavigator: FC = () => {
         name="ChangePassword"
         component={ChangePasswordScreen}
         options={{
-          headerTitle: () => <StackHeader name="Change Password" />,
+          headerTitle: "Change Password",
           // headerShown: false,
         }}
       />
