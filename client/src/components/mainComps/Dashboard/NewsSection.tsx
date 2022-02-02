@@ -34,19 +34,16 @@ const NewsSection: FC = () => {
       src: "https://fortunatecookies.store/wp-content/uploads/spotlight-insta/17951289550620268-m.jpg",
       title: "Employee of the Month",
       date: "February 20, 2022",
-      writtenBy: "Marketing",
     },
     {
       src: "https://fortunatecookies.store/wp-content/uploads/spotlight-insta/17951289550620268-m.jpg",
       title: "Employee of the Month",
       date: "February 20, 2022",
-      writtenBy: "Marketing",
     },
     {
       src: "https://fortunatecookies.store/wp-content/uploads/spotlight-insta/17951289550620268-m.jpg",
       title: "Employee of the Month",
       date: "February 20, 2022",
-      writtenBy: "Marketing",
     },
   ];
 
@@ -58,8 +55,8 @@ const NewsSection: FC = () => {
         <SectionHeader>News</SectionHeader>
       </SectionHeaderWrapper>
       <NewsSliderWrapper horizontal>
-        {cardsData?.map(({src, title, date, writtenBy}: DataTypeNewsCard, index: number) => {
-          return <NewsCard src={src} title={title} date={date} writtenBy={writtenBy} key={index}/>
+        {cardsData?.map(({src, title, date}: DataTypeNewsCard, index: number) => {
+          return <NewsCard src={src} title={title} date={date} key={index}/>
         })}
       </NewsSliderWrapper>
     </OverallSectionWrapper>

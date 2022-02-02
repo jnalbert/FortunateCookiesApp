@@ -17,15 +17,17 @@ const NewsImage = styled.Image`
 
 const NewsTitle = styled.Text`
   margin-top: 10px;
+  margin-bottom: 5px;
   font-family: ${Nunito};
   font-size: 18px;
-  letter-spacing: -1.5px;
+  letter-spacing: -0.7px;
   color: ${Black};
 `
 const NewsSubtitle = styled.Text`
   font-family: ${Poppins};
   font-size: 13px;
-  letter-spacing: -1.5px;
+  
+  /* letter-spacing: -1.5px; */
   color: ${Text300};
 `
 
@@ -33,10 +35,9 @@ export interface DataTypeNewsCard {
   src: string;
   title: string;
   date: string;
-  writtenBy: string;
 }
 
-const NewsCard: FC<DataTypeNewsCard> = ({src, title, date, writtenBy}) => {
+const NewsCard: FC<DataTypeNewsCard> = ({src, title, date}) => {
   return (
     <OverallCard >
       <NewsImage source={{ uri: src }} style={{width: 180, height: 120}} />
@@ -45,9 +46,6 @@ const NewsCard: FC<DataTypeNewsCard> = ({src, title, date, writtenBy}) => {
       </NewsTitle>
       <NewsSubtitle>
         {date}
-      </NewsSubtitle>
-      <NewsSubtitle>
-        By: {writtenBy}
       </NewsSubtitle>
     </OverallCard>
   )
