@@ -6,7 +6,7 @@ export const Teal = "#53CACA"
 
 export const Yellow = "#FFF799"
 
-export const Green = "#9DE7B3"
+export const GreenFor = "#9DE7B3"
 
 export const Purple = "#E0C0FF"
 

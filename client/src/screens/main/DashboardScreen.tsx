@@ -78,12 +78,14 @@ const SectionPadding = styled.View`
   height: 35px;
 `
 
+export const loadInBrowser = (url: string) => {
+  Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
+  return;
+};
+
 const DashBoardScreen: FC = () => {
 
-  const loadInBrowser = (url: string) => {
-    Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
-    return;
-  };
+ 
 
   return (
     <ScreenWrapperComp scrollView>
