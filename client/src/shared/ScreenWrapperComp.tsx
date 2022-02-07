@@ -19,16 +19,18 @@ const ScreenBackgroundColor = styled.View`
 interface ScreenWrapperCompProps {
   children: React.ReactNode;
   scrollView?: boolean;
+  refreshControl?: any;
 }
 
 const ScreenWrapperComp: FC<ScreenWrapperCompProps> = ({
   children,
   scrollView,
+  refreshControl,
 }) => {
   return (
     <ScreenBackgroundColor>
       {scrollView ? (
-        <ScrollView>
+        <ScrollView refreshControl={refreshControl}>
           <ScreenWrapper>{children}</ScreenWrapper>
         </ScrollView>
       ) : (
