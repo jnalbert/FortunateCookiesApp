@@ -4,7 +4,7 @@ export const Pink = "#FF70A0"
 
 export const Teal = "#53CACA"
 
-export const Yellow = "#FFF799"
+export const YellowFor = "#FFF799"
 
 export const GreenFor = "#9DE7B3"
 

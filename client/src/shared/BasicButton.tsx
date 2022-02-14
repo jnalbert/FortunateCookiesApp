@@ -2,7 +2,8 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
 import styled from 'styled-components/native';
-import { Teal } from './colors';
+import { Teal, Pink, Purple } from './colors';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const TouchableButtonWrapper = styled.TouchableOpacity`
   align-items: center;
@@ -32,16 +33,35 @@ interface BasicButtonProps {
   onPress: () => void;
   style?: {};
   buttonTextStyle?: {};
+  gradient?: boolean;
 }
 
-const BasicButton: FC<BasicButtonProps> = ({title, onPress, style, buttonTextStyle}) => {
+const BasicButton: FC<BasicButtonProps> = ({ title, onPress, style, buttonTextStyle, gradient }) => {
+  
+  const DisplayMeat = () => {
+    return (
+        <TouchableButtonWrapper style={style} onPress={onPress}>
+          <ButtonText style={buttonTextStyle} >{title}</ButtonText>
+        </TouchableButtonWrapper>
+    )
+  }
+
   return (
-    <PaddedView>
-      <TouchableButtonWrapper style={style} onPress={onPress}>
-        <ButtonText style={buttonTextStyle} >{title}</ButtonText>
-      </TouchableButtonWrapper>
-  </PaddedView>
-  )
+    <>
+      
+      {gradient ? (
+        <PaddedView>
+          <LinearGradient start={{ x: 0.2, y: 0.3 }} end={{x: 0.77, y: 0.4}} colors={[Pink, Purple]} style={{ justifyContent: "center", borderRadius: 16}}>
+            {DisplayMeat()}
+          </LinearGradient>
+        </PaddedView>
+      ) : (
+        <PaddedView>
+          {DisplayMeat()}
+        </PaddedView>
+      )}
+    </>
+    )
 }
 
 export default BasicButton

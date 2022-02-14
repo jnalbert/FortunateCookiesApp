@@ -34,7 +34,8 @@
     "react-native-web": "0.17.1",
     "styled-components": "^5.3.3",
     "expo-linear-gradient": "~10.0.3",
-    "expo-blur": "~10.0.3"
+    "expo-blur": "~10.0.3",
+    "react-native-svg": "12.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

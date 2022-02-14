@@ -50,7 +50,7 @@ const RewardsNavigator: FC = () => {
         component={ScanPurchaseScreen}
         options={{
           headerTitle: () => <StackHeader name="" />,
-          headerShown: false,
+          headerShown: true,
         }}
       />
 

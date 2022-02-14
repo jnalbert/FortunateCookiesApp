@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
 import styled from 'styled-components/native';
-import { backgroundGray, borderColor, Nunito, Poppins, Text300, Text500, Text200 } from '../../../shared/colors';
+import { Nunito, Poppins, Text300, Text500, Text200 } from '../../../shared/colors';
 
 
 const OverallWrapper = styled.View`
