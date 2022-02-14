@@ -33,7 +33,7 @@ const HeaderIconWrapper = styled.View`
   justify-content: center;
 `
 
-const HeaderText = styled.Text`
+export const HeaderText = styled.Text`
   font-family: ${Nunito};
   font-size: 20px;
   letter-spacing: -1.5px;
@@ -41,7 +41,7 @@ const HeaderText = styled.Text`
 `
 
 
-const CookiesSectionWrapper = styled.ScrollView`
+export const CookiesSectionWrapper = styled.ScrollView`
   height: 210px;
   width: 104.5%;
 `
@@ -94,7 +94,7 @@ const RewardsHistoryComp: FC = () => {
   const navigation: any = useNavigation()
 
   const NavigateToAllRewards = () => { 
-    navigation.navigate("AllRewards")
+    navigation.navigate("AllRewards", {rewardCookies})
   }
 
   return (
