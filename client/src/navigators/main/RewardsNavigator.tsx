@@ -59,7 +59,7 @@ const RewardsNavigator: FC = () => {
         component={ConfirmPurchaseScreen}
         options={{
           headerTitle: () => <StackHeader name="" />,
-          headerShown: false,
+          headerShown: true,
         }}
       />
 
