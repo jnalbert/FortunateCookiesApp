@@ -1,12 +1,17 @@
 import { useNavigation } from '@react-navigation/native';
-import AppLoading from 'expo-app-loading';
 import React, { FC, useState, useEffect } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import styled from 'styled-components/native';
-import { LoadingWrapper } from '../../../screens/main/rewards/ConfirmPurchaseScreen';
 import BasicButton from '../../../shared/BasicButton';
 import { Black, FrankFurter, Nunito } from '../../../shared/colors';
 
+
+const LoadingWrapper = styled.View`
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`
 
 const OverallWrapper = styled.View`
   /* width: 100%; */

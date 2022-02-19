@@ -6,7 +6,7 @@ import NotFoundPurchase from "../../../components/mainComps/Rewards/NotFoundPurc
 import PurchaseFound from "../../../components/mainComps/Rewards/PurchaseFound";
 
 
-export const LoadingWrapper = styled.View`
+const LoadingWrapper = styled.View`
   width: 100%;
   height: 100%;
   justify-content: center;
