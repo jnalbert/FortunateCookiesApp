@@ -43,13 +43,13 @@ const ScanPurchaseScreen: FC = () => {
 
   const ProceedToNextScreen = () => {
 
-    // *** DEV MODE ***
-    setCode("34556")
-    // TURN OFF WHEN NOT USING
+    // // *** DEV MODE ***
+    // setCode("34556")
+    // // TURN OFF WHEN NOT USING
 
-    console.log(code);
+    // console.log(code);
     if (code) {
-      navigator.navigate("ConfirmPurchase", {params: code})
+      navigator.navigate("ConfirmPurchase", code)
     }
     
   }
