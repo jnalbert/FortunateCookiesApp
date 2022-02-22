@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Linking, View } from 'react-native';
 import ScreenWrapperComp from '../../shared/ScreenWrapperComp';
 import styled from 'styled-components/native';
-import { Black, FrankFurter, Nunito, Pink, Poppins, Teal, Yellow } from '../../shared/colors';
+import { Black, FrankFurter, Nunito, Pink, Poppins, Teal, YellowFor } from '../../shared/colors';
 import NewsSection, { SectionHeader } from '../../components/mainComps/Dashboard/NewsSection';
 import { SectionHeaderWrapper } from '../../components/mainComps/Dashboard/NewsSection';
 import CookieGallery from '../../components/mainComps/Dashboard/CookieGallery';
@@ -119,7 +119,7 @@ const DashBoardScreen: FC = () => {
         </SectionHeaderWrapper>
         <SocialMediaButtonsWrapper>
           <SocialMediaButton onPress={() => {loadInBrowser("https://www.instagram.com/fortunatecookies.vei/")}}>
-            <AntDesign name="instagram" size={60} color={Yellow} />
+            <AntDesign name="instagram" size={60} color={YellowFor} />
           </SocialMediaButton>
 
           <SocialMediaButton onPress={() => {loadInBrowser("https://twitter.com/crackopenasmile")}}>

@@ -33,9 +33,15 @@ const ButtonText = styled.Text`
 
 const ContactUsComp: FC = () => {
 
-  const navigation = useNavigation();
-  const contactNavigate = () => {
-    // navigation.navigate('ContactUs');
+  const navigation: any = useNavigation();
+
+  const writeReviewNavigate = () => { 
+    navigation.navigate('WriteReview');
+  }
+
+
+  const writeSuggestionNavigate = () => { 
+    navigation.navigate('WriteSuggestion');
   }
 
   return (
@@ -45,13 +51,13 @@ const ContactUsComp: FC = () => {
       </SectionHeaderWrapper>
       <BodyWrapper>
         <IndividualWrapper>
-          <BasicButton onPress={contactNavigate} title="Write Review" style={{ width: 150, backgroundColor: Teal }} />
+          <BasicButton onPress={writeReviewNavigate} title="Write Review" style={{ width: 150, backgroundColor: Teal }} />
           <ButtonTextWrapper>
             <ButtonText>Give us your honest options on our products to help us improve them</ButtonText>
           </ButtonTextWrapper>
         </IndividualWrapper>
         <IndividualWrapper>
-          <BasicButton onPress={contactNavigate} title="Write Suggestion" style={{ width: 150, backgroundColor: Pink }} />
+          <BasicButton onPress={writeSuggestionNavigate} title="Write Suggestion" style={{ width: 150, backgroundColor: Pink }} />
           <ButtonTextWrapper>
             <ButtonText>Give us your ideas on new fortune cookie flavors and messages</ButtonText>
           </ButtonTextWrapper>

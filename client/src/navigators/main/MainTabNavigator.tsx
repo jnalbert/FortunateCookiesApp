@@ -10,6 +10,7 @@ import ShopScreen from '../../screens/main/ShopScreen';
 import { Octicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons'; 
 import { SimpleLineIcons } from '@expo/vector-icons'; 
+import DashBoardNavigator from './DashBoardNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -44,7 +45,7 @@ const MainTabNavigator: FC = () => {
      
       
     >
-      <Tab.Screen options={{ headerTitle: "Dash Board"}} name="DashBoard" component={DashBoardScreen} />
+      <Tab.Screen options={{ headerTitle: "Dash Board",  headerShown: false}} name="DashBoardNav" component={DashBoardNavigator} />
       <Tab.Screen name="Shop" component={ShopScreen} />
       <Tab.Screen options={{ headerTitle: "Rewards", headerShown: false }} name="RewardsNav" component={RewardsNavigator} />
       <Tab.Screen options={{ headerTitle: "Profile", headerShown: false}} name="SettingsNav" component={SettingsNavigator} />
