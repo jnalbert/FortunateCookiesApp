@@ -181,8 +181,8 @@ export const getTokenAsync = async (dispatch: any) => {
   //   }
 
     // Turn this off when not in dev mode
-    const userUuid = "dev";
-  // const userUuid = null;
+    // const userUuid = "dev";
+  const userUuid = null;
 
   // await _storeUuid(userUuid);
   

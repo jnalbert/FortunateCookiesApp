@@ -35,3 +35,5 @@ export const Poppins = "Poppins"
 export const SourceSerif = "SourceSerif"
 
 export const Nunito = "Nunito"
+
+export const NunitoBold = "NunitoBold"
