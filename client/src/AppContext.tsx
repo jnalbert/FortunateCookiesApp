@@ -5,6 +5,9 @@ import React, {
 import { SignInFormProps } from "./screens/auth/SignInScreen";
 import { SignUpFormProps } from "./screens/auth/SignUpScreen";
 import { setItemAsync, getItemAsync, deleteItemAsync } from "expo-secure-store";
+import { Auth } from '../config/firebase';
+import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
+import { addNewAccountToDB } from "../firebase/types/FirestoreFunctions";
 
 export interface AuthTypes {
   isLoading: boolean;
@@ -78,20 +81,21 @@ export const useMemoFunction = (dispatch: any, state: any) => ({
     // In the example, we'll use a dummy token
     console.log(data)
 
-    // try {
-    //   const userResponse = await Auth?.signInWithEmailAndPassword(data.email, data.password)
-    //   // console.log(userResponse?.user?.metadata.creationTime)
+    try {
+
+      const userResponse = await signInWithEmailAndPassword(Auth, data.email, data.password)
+      // console.log(userResponse?.user?.metadata.creationTime)
 
 
-    //   // console.log(userResponse?.user?.uid, "uuid logit" )
-    //   dispatch({ type: "SIGN_IN", token: userResponse?.user?.uid });
-    // } catch (error: any) {
-    //   console.log(error.code)
-    //   if (error.code === "auth/wrong-password" || error.code === "auth/user-not-found") {
-    //     return "Email or Password is incorrect"
-    //   }
-    //   return null;
-    // }
+      console.log(userResponse.user.uid, "uuid login" )
+      dispatch({ type: "SIGN_IN", token: userResponse.user.uid });
+    } catch (error: any) {
+      console.log(error.code)
+      if (error.code === "auth/wrong-password" || error.code === "auth/user-not-found") {
+        return "Email or Password is incorrect"
+      }
+      return null;
+    }
 
     // THis is dev stuff comment when done
       dispatch({ type: "SIGN_IN", token: "Dev" });
@@ -102,11 +106,11 @@ export const useMemoFunction = (dispatch: any, state: any) => ({
   signOut: () => {
     dispatch({ type: "SIGN_OUT" })
 
-    // try {
-    //   Auth?.signOut()
-    // } catch (error) {
-    //   console.log(error)
-    // }
+    try {
+      Auth.signOut()
+    } catch (error) {
+      console.log(error)
+    }
 
   },
 
@@ -117,35 +121,37 @@ export const useMemoFunction = (dispatch: any, state: any) => ({
     // In the example, we'll use a dummy token
     console.log(data)
 
-    // try {
-    //   const userResponse = await Auth?.createUserWithEmailAndPassword(data.email, data.password)
+    try {
+      const userResponse = await createUserWithEmailAndPassword(Auth, data.email, data.password)
 
-    //   // console.log(userResponse)
-    //   // console.log(new Date(userResponse?.user?.metadata?.creationTime))
+      // console.log(userResponse)
+      // console.log(new Date(userResponse?.user?.metadata?.creationTime))
 
-    //   const creationDate = userResponse?.user?.metadata?.creationTime
+      const creationDate = userResponse.user.metadata.creationTime
 
-    //   const newUserObject = {
-    //     name: data.name,
-    //     email: data.email,
-    //     dateJoined: creationDate ? new Date(creationDate).toISOString() : "",
-    //     totalAudioFiles: 0,
-    //     totalAudioFileLengthSeconds: 0,
-    //     uuid: userResponse?.user?.uid || "",
-    //   }
+      const newUserObject = {
+        name: data.name,
+        email: data.email,
+        phoneNumber: data.phoneNumber.toString(),
+        dateJoined: creationDate ? new Date(creationDate).toISOString() : "",
+        totalCookiesPurchased: 0,
+        totalRewardsEarned: 0,
+        totalPointsEarned: 0,
+        uuid: userResponse.user.uid || "",
+      }
 
-    //   addNewAccountToDB(newUserObject)
+      addNewAccountToDB(newUserObject)
 
   
-    //   dispatch({ type: "SIGN_IN", token: userResponse?.user?.uid });
-    // } catch (error: any) {
-    //   console.log(error.code)
-    //   if (error.code === "auth/email-already-in-use" ) {
-    //     return "This email is already associated with an account"
-    //   }
-    //   return null;
+      dispatch({ type: "SIGN_IN", token: userResponse.user.uid });
+    } catch (error: any) {
+      console.log(error.code)
+      if (error.code === "auth/email-already-in-use" ) {
+        return "This email is already associated with an account"
+      }
+      return null;
       
-    // }
+    }
 
     // THis is dev stuff comment when done
     dispatch({ type: "SIGN_IN", token: "Dev" });
@@ -159,34 +165,34 @@ export const useMemoFunction = (dispatch: any, state: any) => ({
 
 export const getTokenAsync = async (dispatch: any) => {
 
-  // try {
-  //     Auth?.onAuthStateChanged(async(user) => {
-  //       let userUuid = null;
-  //       if (user) {
-  //         userUuid = user.uid
-  //         await _storeUuid(userUuid);
-  //       }
+  try {
+      Auth.onAuthStateChanged(async(user) => {
+        let userUuid = null;
+        if (user) {
+          userUuid = user.uid
+          await _storeUuid(userUuid);
+        }
 
-  //       // Turn this off when not in dev mode
-  //       // userUuid = "dev"
+        // Turn this off when not in dev mode
+        // userUuid = "dev"
 
-  //       console.log(userUuid, "uuid")
+        console.log(userUuid, "uuid")
         
-  //       await dispatch({ type: "RESTORE_TOKEN", token: userUuid });
+        await dispatch({ type: "RESTORE_TOKEN", token: userUuid });
        
-  //     });
-  //   } catch (e) {
-  //     console.log(e);
+      });
+    } catch (e) {
+      console.log(e);
       
-  //   }
+    }
 
     // Turn this off when not in dev mode
     // const userUuid = "dev";
-  const userUuid = null;
+  // const userUuid = null;
 
   // await _storeUuid(userUuid);
   
-  await dispatch({ type: "RESTORE_TOKEN", token: userUuid });
+  // await dispatch({ type: "RESTORE_TOKEN", token: userUuid });
     
 };
 
@@ -215,3 +221,18 @@ export const _deleteStoredUuid = async () => {
 }
 
   
+
+export const resetPassword = async (email: string) => {
+  try { 
+    const res = await sendPasswordResetEmail(Auth, email)
+    // console.log(res)
+    console.log('HERE')
+  } catch (e: any) {
+    console.log(e.code)
+    if (e.code === "auth/invalid-email") {
+      return "There is no account with that email"
+    } 
+    return null;
+  }
+ 
+}

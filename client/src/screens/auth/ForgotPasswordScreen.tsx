@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import StyledTextInput from '../../components/Inputs/StyledTextInput';
 import CircleButton from '../../shared/CircleButton';
 import { useNavigation } from '@react-navigation/native';
+import { resetPassword } from '../../AppContext';
 
 
 const HeaderTextWrapper = styled.View`
@@ -51,16 +52,17 @@ const ForgotPasswordScreen: FC = () => {
   const onSubmit = async (data: ForgotPasswordForm) => { 
     console.log(data);
   
-    // Call forgot password function
-    // const response = await signIn(data)
-    const response = null;
+    const response = await resetPassword(data.email);
+    // const response = null;
    
+    console.log('first', response)
     if (response) {
       const errorConfig = {type: "manual", message: response}
-      setError("password", errorConfig)
+      setError("email", errorConfig)
     } else {
       navigation.navigate('ForgotPasswordSteps')
     } 
+
 
   }
 
@@ -82,6 +84,7 @@ const ForgotPasswordScreen: FC = () => {
           />
         </InputWrapper>
 
+      
         <CircleButtonWrapper>
           <CircleButton onPress={handleSubmit(onSubmit)} />
         </CircleButtonWrapper>

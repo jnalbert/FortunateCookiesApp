@@ -1,5 +1,7 @@
-import firebase from 'firebase/app';
+import {initializeApp} from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore'
+import { getStorage } from "firebase/storage"
 
 
 import Constants from 'expo-constants';
@@ -16,16 +18,14 @@ const firebaseConfig = {
 };
 
 
-let Firebase;
 
-
-if (firebase.getApps.length === 0) {
-  Firebase = firebase.initializeApp(firebaseConfig)
-}
+const Firebase = initializeApp(firebaseConfig)
 
 
 export const FirebaseAll = Firebase
 export const Auth = getAuth(FirebaseAll)
+export const db = getFirestore(FirebaseAll)
+export const storage = getStorage(FirebaseAll);
 
 
 
