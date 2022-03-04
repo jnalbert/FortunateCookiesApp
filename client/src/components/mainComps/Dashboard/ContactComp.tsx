@@ -7,6 +7,8 @@ import StyledTextInput from '../../Inputs/StyledTextInput';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ErrorText } from '../../../shared/Styles';
 import BasicButton from '../../../shared/BasicButton';
+import { ContactSendData } from '../../../../firebase/FirestoreFunctions';
+import { _getStoredUuid } from '../../../AppContext';
 
 const OverallWrapper = styled.View`
   width: 95%;
@@ -102,10 +104,13 @@ const ContactComp: FC<Props> = ({header, subHeader, type}) => {
   } = useForm<WriteProps>();
 
   const onSubmit = async (data: WriteProps) => { 
-    console.log(data);
-    console.log('type', type)
+    // console.log(data);
+    // console.log('type', type)
 
-    // call function and pass in what type of thing it is
+    // call function and pass in what type of thing it
+    const uuid = await _getStoredUuid()
+    await ContactSendData(data.email, data.body, type, uuid as string);
+
     reset({
       body: '',
       email: '',

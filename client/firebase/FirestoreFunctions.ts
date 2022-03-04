@@ -69,3 +69,19 @@ export const GetGalleryCookiesImg = async () => {
     
 }
 
+
+export const ContactSendData = async (email: string, body: string, type: "review" | "suggestion", uuid: string) => { 
+  try {
+    // console.log(email, body, type);
+    // 5 digit integer random number
+    const randomNumber = Math.floor(Math.random() * (9999 - 1000) + 1000);
+    await setDoc(doc(db, "contactUs", `${type}${randomNumber}`), {
+      email: email,
+      body: body,
+      date: new Date().toDateString(),
+      uuid: uuid,
+    })
+  } catch (error) {
+    console.log(error);
+  }
+}
