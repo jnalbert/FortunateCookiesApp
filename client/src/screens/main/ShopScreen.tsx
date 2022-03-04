@@ -20,7 +20,7 @@ const CookiesData: CookieType[] = [
     imageStyle: {}
   },
   {
-    imageSrc: "https://fortunatecookies.store/wp-content/uploads/2022/01/affirmation-fortune.png",
+    imageSrc: "https://firebasestorage.googleapis.com/v0/b/fortunatecookies-4940a.appspot.com/o/DashBoardImgs%2FcookieDesigns%2FAfermations.png?alt=media&token=aa0a8cf7-9d00-4194-990b-2ad77ad11c19",
     name: "Affirmations",
     textStyle: { color: Teal },
     imageStyle: {width: 130, height: 130}
