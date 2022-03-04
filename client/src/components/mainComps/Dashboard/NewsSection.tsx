@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 import { Black, FrankFurter } from "../../../shared/colors";
 import NewsCard, { DataTypeNewsCard } from "./NewsCard";
 import { GetNewsFeedData } from '../../../../firebase/FirestoreFunctions';
+import IsLoadingComp from "../../../shared/IsLoadingComp";
 
 
 export const OverallSectionWrapper = styled.View`
@@ -55,6 +56,7 @@ const NewsSection: FC = () => {
   // ];
 
   const [cardsData, SetCardsData] = useState<DataTypeNewsCard[] | null>();
+  const [isLoading, setIsLoading] = useState(true);
   
 
 
@@ -63,13 +65,11 @@ const NewsSection: FC = () => {
       const response = await GetNewsFeedData();
       await SetCardsData(response);
       // changeDownloadUrl();
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
-    
   }
-
-
 
 
   useEffect(() => {
@@ -81,11 +81,13 @@ const NewsSection: FC = () => {
       <SectionHeaderWrapper>
         <SectionHeader>News</SectionHeader>
       </SectionHeaderWrapper>
-      <NewsSliderWrapper horizontal>
-        {cardsData?.map(({ src, title, date, thumbnail }: DataTypeNewsCard, index: number) => {
-          return <NewsCard src={src} thumbnail={thumbnail} title={title} date={date} key={index}/>
-        })}
-      </NewsSliderWrapper>
+      <IsLoadingComp isLoading={isLoading}>
+        <NewsSliderWrapper horizontal>
+          {cardsData?.map(({ src, title, date, thumbnail }: DataTypeNewsCard, index: number) => {
+            return <NewsCard src={src} thumbnail={thumbnail} title={title} date={date} key={index}/>
+          })}
+        </NewsSliderWrapper>
+      </IsLoadingComp>
     </OverallSectionWrapper>
   );
 };

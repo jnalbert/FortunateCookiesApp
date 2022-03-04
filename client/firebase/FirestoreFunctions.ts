@@ -54,8 +54,15 @@ export const GetNewsFeedData = async () => {
 export const GetGalleryCookiesImg = async () => {
   try {
     const folderRef = ref(storage, "DashBoardImgs/cookieDesigns");
-    const cookieList = listAll(folderRef);
-    console.log(cookieList);
+    const cookieList = (await listAll(folderRef)).items
+    const cookieData = []
+    for (let i = 0; i < cookieList.length; i++) { 
+      const urlDownload = await getDownloadURL(cookieList[i]);
+      const cookieName = cookieList[i].name.substring(0, cookieList[i].name.indexOf("."));
+      // console.log(cookieName)
+      cookieData.push({src: urlDownload, name: cookieName})
+    }
+    return cookieData;
   } catch (error) {
     console.log(error);
   }
