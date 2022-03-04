@@ -1,3 +1,5 @@
+import { Linking } from "react-native"
+
 export const backgroundColor = "#fffffffe"
 
 export const Pink = "#FF70A0"
@@ -37,3 +39,8 @@ export const SourceSerif = "SourceSerif"
 export const Nunito = "Nunito"
 
 export const NunitoBold = "NunitoBold"
+
+export const loadInBrowser = (url: string) => {
+  Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
+  return;
+};

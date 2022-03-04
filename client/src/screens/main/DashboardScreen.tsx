@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Linking, View } from 'react-native';
 import ScreenWrapperComp from '../../shared/ScreenWrapperComp';
 import styled from 'styled-components/native';
-import { Black, FrankFurter, Nunito, Pink, Poppins, Teal, YellowFor } from '../../shared/colors';
+import { Black, FrankFurter, loadInBrowser, Nunito, Pink, Poppins, Teal, YellowFor } from '../../shared/colors';
 import NewsSection, { SectionHeader } from '../../components/mainComps/Dashboard/NewsSection';
 import { SectionHeaderWrapper } from '../../components/mainComps/Dashboard/NewsSection';
 import CookieGallery from '../../components/mainComps/Dashboard/CookieGallery';
@@ -78,10 +78,7 @@ const SectionPadding = styled.View`
   height: 35px;
 `
 
-export const loadInBrowser = (url: string) => {
-  Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
-  return;
-};
+
 
 const DashBoardScreen: FC = () => {
 

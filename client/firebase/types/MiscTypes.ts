@@ -11,3 +11,10 @@ export interface UserTypeDB {
 export interface UserTypeClient extends UserTypeDB { 
   uuid: string;
 }
+
+export interface NewsCardTypeDB {
+  title: string;
+  date: string;
+  src: string;
+  thumbnail: string;
+}

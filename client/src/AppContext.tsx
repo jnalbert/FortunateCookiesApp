@@ -7,7 +7,7 @@ import { SignUpFormProps } from "./screens/auth/SignUpScreen";
 import { setItemAsync, getItemAsync, deleteItemAsync } from "expo-secure-store";
 import { Auth } from '../config/firebase';
 import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
-import { addNewAccountToDB } from "../firebase/types/FirestoreFunctions";
+import { addNewAccountToDB } from "../firebase/FirestoreFunctions";
 
 export interface AuthTypes {
   isLoading: boolean;
@@ -79,7 +79,7 @@ export const useMemoFunction = (dispatch: any, state: any) => ({
     // We will also need to handle errors if sign in failed
     // After getting token, we need to persist the token using `SecureStore`
     // In the example, we'll use a dummy token
-    console.log(data)
+    // console.log(data)
 
     try {
 
@@ -226,7 +226,7 @@ export const resetPassword = async (email: string) => {
   try { 
     const res = await sendPasswordResetEmail(Auth, email)
     // console.log(res)
-    console.log('HERE')
+    // console.log('HERE')
   } catch (e: any) {
     console.log(e.code)
     if (e.code === "auth/invalid-email") {

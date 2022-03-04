@@ -1,8 +1,10 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
 import { Black, FrankFurter } from "../../../shared/colors";
 import NewsCard, { DataTypeNewsCard } from "./NewsCard";
+import { GetNewsFeedData } from '../../../../firebase/FirestoreFunctions';
+
 
 export const OverallSectionWrapper = styled.View`
   width: 100%;
@@ -29,25 +31,50 @@ export const NewsSliderWrapper = styled.ScrollView`
 `;
 
 const NewsSection: FC = () => {
-  const data: DataTypeNewsCard[] = [
-    {
-      src: "https://fortunatecookies.store/wp-content/uploads/spotlight-insta/17951289550620268-m.jpg",
-      title: "Employee of the Month",
-      date: "February 20, 2022",
-    },
-    {
-      src: "https://fortunatecookies.store/wp-content/uploads/spotlight-insta/17951289550620268-m.jpg",
-      title: "Employee of the Month",
-      date: "February 20, 2022",
-    },
-    {
-      src: "https://fortunatecookies.store/wp-content/uploads/spotlight-insta/17951289550620268-m.jpg",
-      title: "Employee of the Month",
-      date: "February 20, 2022",
-    },
-  ];
+  // const data: DataTypeNewsCard[] = [
+  //   {
+  //     src: "https://fortunatecookies.store/wp-content/uploads/spotlight-insta/17951289550620268-m.jpg",
+  //     title: "Employee of the Month",
+  //     date: "February 20, 2022",
+  //     clickSrc: "https://fortunatecookies.store/wp-content/uploads/2022/01/Winter-2021-Newsletter-1.pdf"
+  //   },
+  //   {
+  //     src: "https://fortunatecookies.store/wp-content/uploads/spotlight-insta/17951289550620268-m.jpg",
+  //     title: "Employee of the Month",
+  //     date: "February 20, 2022",
+  //     clickSrc: "https://fortunatecookies.store/wp-content/uploads/2022/01/Winter-2021-Newsletter-1.pdf"
 
-  const [cardsData, SetCardsData] = useState<DataTypeNewsCard[] | null>(data);
+  //   },
+  //   {
+  //     src: "https://fortunatecookies.store/wp-content/uploads/spotlight-insta/17951289550620268-m.jpg",
+  //     title: "Employee of the Month",
+  //     date: "February 20, 2022",
+  //     clickSrc: "https://fortunatecookies.store/wp-content/uploads/2022/01/Winter-2021-Newsletter-1.pdf"
+
+  //   },
+  // ];
+
+  const [cardsData, SetCardsData] = useState<DataTypeNewsCard[] | null>();
+  
+
+
+  const getNewDataRequest = async () => { 
+    try {
+      const response = await GetNewsFeedData();
+      await SetCardsData(response);
+      // changeDownloadUrl();
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
+
+
+
+
+  useEffect(() => {
+    getNewDataRequest()
+  }, [])
 
   return (
     <OverallSectionWrapper>
@@ -55,8 +82,8 @@ const NewsSection: FC = () => {
         <SectionHeader>News</SectionHeader>
       </SectionHeaderWrapper>
       <NewsSliderWrapper horizontal>
-        {cardsData?.map(({src, title, date}: DataTypeNewsCard, index: number) => {
-          return <NewsCard src={src} title={title} date={date} key={index}/>
+        {cardsData?.map(({ src, title, date, thumbnail }: DataTypeNewsCard, index: number) => {
+          return <NewsCard src={src} thumbnail={thumbnail} title={title} date={date} key={index}/>
         })}
       </NewsSliderWrapper>
     </OverallSectionWrapper>

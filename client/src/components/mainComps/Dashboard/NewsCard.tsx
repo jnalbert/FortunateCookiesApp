@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
-import { View } from 'react-native';
+import { Linking, View } from 'react-native';
 import styled from "styled-components/native"
-import { Black, Nunito, Poppins, Text300 } from '../../../shared/colors';
 
-const OverallCard = styled.View`
+import { Black, loadInBrowser, Nunito, Poppins, Text300 } from '../../../shared/colors';
+
+const OverallCard = styled.TouchableOpacity`
   margin-right: 25px;
 
 `
@@ -33,14 +34,19 @@ const NewsSubtitle = styled.Text`
 
 export interface DataTypeNewsCard {
   src: string;
+  thumbnail: string;
   title: string;
   date: string;
 }
 
-const NewsCard: FC<DataTypeNewsCard> = ({src, title, date}) => {
+const NewsCard: FC<DataTypeNewsCard> = ({ src, title, date, thumbnail }) => {
+  
+
+  // console.log(thumbnail)
+
   return (
-    <OverallCard >
-      <NewsImage source={{ uri: src }} style={{width: 180, height: 120}} />
+    <OverallCard onPress={() => {loadInBrowser(src)}}>
+      <NewsImage source={{ uri: thumbnail }} style={{width: 180, height: 120}} />
       <NewsTitle>
         {title}
       </NewsTitle>
