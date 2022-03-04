@@ -85,3 +85,14 @@ export const ContactSendData = async (email: string, body: string, type: "review
     console.log(error);
   }
 }
+
+export const GetRewardsData = async (uuid: string) => { 
+  try {
+    const userDoc = await getDoc(doc(db, "users", uuid));
+    console.log("here")
+    const userData = userDoc.data()
+    return userData?.totalPointsEarned;
+  } catch (error) {
+    console.log(error);
+  }
+}

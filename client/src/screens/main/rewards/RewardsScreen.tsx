@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { View } from 'react-native';
 import styled from 'styled-components/native';
 import DonutChart from '../../../components/mainComps/Rewards/DonutChart';
@@ -7,6 +7,8 @@ import ScreenWrapperComp from '../../../shared/ScreenWrapperComp';
 import BasicButton from '../../../shared/BasicButton';
 import RewardsHistoryComp from '../../../components/mainComps/Rewards/RewardsHistoryComp';
 import { useNavigation } from '@react-navigation/native';
+import { _getStoredUuid } from '../../../AppContext';
+import { GetRewardsData } from '../../../../firebase/FirestoreFunctions';
 
 const DonutChartWrapper = styled.View`
   padding-top: 25px;
@@ -54,6 +56,18 @@ const RewardsScreen: FC<any> = ({}) => {
   const addPurchasePress = () => {
     navigator.navigate("ScanPurchase")
   }
+
+  const GetPoints = async () => {
+    const uuid = await _getStoredUuid() as string
+    const resPoints = await GetRewardsData(uuid)
+    // console.log('first', resPoints)
+    
+    setPoints(resPoints % 50)
+  }
+
+  useEffect(() => {
+    GetPoints()
+  }, [])
 
   return (
     <ScreenWrapperComp scrollView>
