@@ -1,10 +1,9 @@
 import React, { FC } from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
-import { loadInBrowser } from "../../../screens/main/DashboardScreen";
 import { CookieType } from "../../../screens/main/ShopScreen";
 import BasicButton from "../../../shared/BasicButton";
-import { Black, FrankFurter, Poppins, Text500 } from "../../../shared/colors";
+import { Black, FrankFurter, loadInBrowser, Poppins, Text500 } from "../../../shared/colors";
 
 const OverallWrapper = styled.View`
   flex-direction: column;
