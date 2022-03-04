@@ -7,6 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { logoutRed, Pink, Poppins, Purple, Text200, Text400 } from '../../shared/colors';
 import BasicButton from '../../shared/BasicButton';
 import ProfileInfoSection from '../../components/mainComps/Settings/ProfileInfoSection';
+import { GetProfileData } from '../../../firebase/FirestoreFunctions';
 
 
 const Thumbnail = styled.View`
@@ -93,9 +94,9 @@ const ProfileScreen: FC<any> = ({navigation}) => {
     const uuid = await _getStoredUuid();
     console.log(uuid, "stored")
 
-    // const { name, dateJoined, totalAudioFileLengthSeconds, totalAudioFiles, email } = await getUserData(uuid || "");
+    const res = await GetProfileData(uuid || "");
     
-    const rawData = { name: "Justin Albert", email: "jnalbert879@gmail.com", dateJoined: new Date().toString(), totalCookiesPurchased: 35, totalRewardsEarned: 5, totalPointsEarned: 540 }
+    const rawData = { name: res?.name, email: res?.email, dateJoined: new Date(res?.dateJoined).toString(), totalCookiesPurchased: res?.totalCookiesPurchased, totalRewardsEarned: res?.totalPointsEarned, totalPointsEarned: res?.totalRewardsEarned }
     const { name, email, dateJoined, totalCookiesPurchased, totalRewardsEarned, totalPointsEarned } = rawData;
     
     const newDate = getFormattedDate(new Date(dateJoined).toString());

@@ -96,3 +96,14 @@ export const GetRewardsData = async (uuid: string) => {
     console.log(error);
   }
 }
+
+export const GetProfileData = async (uuid: string) => { 
+  try {
+    const userDoc = await getDoc(doc(db, "users", uuid));
+    const userData = userDoc.data()
+    console.log(userData)
+    return userData;
+  } catch (error) {
+    console.log(error);
+  }
+}
