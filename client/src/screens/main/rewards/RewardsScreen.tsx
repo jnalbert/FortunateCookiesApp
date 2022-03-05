@@ -36,7 +36,7 @@ const MAX_POINTS = 50;
 
 const RewardsScreen: FC<any> = ({}) => {
 
-  const [points, setPoints] = useState(40)
+  const [points, setPoints] = useState(0)
 
   const displayMessage = () => {
     if(points >= MAX_POINTS) {
@@ -61,7 +61,7 @@ const RewardsScreen: FC<any> = ({}) => {
     const uuid = await _getStoredUuid() as string
     const resPoints = await GetRewardsData(uuid)
     // console.log('first', resPoints)
-    
+
     setPoints(resPoints % 50)
   }
 
