@@ -1,7 +1,8 @@
-import { db, storage } from "../config/firebase";
+import { Auth, db, storage } from "../config/firebase";
 import { UserTypeClient, NewsCardTypeDB } from './types/MiscTypes';
 import { setDoc, doc, collection, getDoc, getDocs } from "firebase/firestore"; 
 import { getDownloadURL, listAll, ref } from "firebase/storage";
+import { reauthenticateWithCredential, signInWithEmailAndPassword, updatePassword } from "firebase/auth";
 
 
 export const addNewAccountToDB = async ({
@@ -89,7 +90,6 @@ export const ContactSendData = async (email: string, body: string, type: "review
 export const GetRewardsData = async (uuid: string) => { 
   try {
     const userDoc = await getDoc(doc(db, "users", uuid));
-    console.log("here")
     const userData = userDoc.data()
     return userData?.totalPointsEarned;
   } catch (error) {
@@ -101,9 +101,36 @@ export const GetProfileData = async (uuid: string) => {
   try {
     const userDoc = await getDoc(doc(db, "users", uuid));
     const userData = userDoc.data()
-    console.log(userData)
+    // console.log(userData)
     return userData;
   } catch (error) {
     console.log(error);
   }
+}
+
+export const ChangePassword = async (newPassword: string) => { 
+  try {
+    const currentUser = Auth.currentUser;
+    // console.log(currentUser)
+    await updatePassword(currentUser as any, newPassword);
+    console.log("password changed")
+  } catch (error: any) {
+    console.log(error);
+    return error.code;
+  }
+}
+
+export const ReauthenticateUser = async (password: string) => { 
+  try {
+    const currentUser = Auth.currentUser;
+    // console.log('first', currentUser?.email)
+    await signInWithEmailAndPassword(Auth, currentUser?.email as string, password)
+  
+  } catch (error: any) {
+    console.log(error.code)
+    if (error.code === "auth/wrong-password") {
+      return "wrongPass";
+     }
+  }
+
 }

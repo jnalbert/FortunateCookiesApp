@@ -7,6 +7,8 @@ import { HeaderTextWrapper, HeaderText, SubheaderText, InputWrapper, SubmitButto
 import StyledTextInput from '../../components/Inputs/StyledTextInput';
 import CircleButton from '../../shared/CircleButton';
 import ActionCompletedSection from '../../shared/ActionCompletedSection';
+import { _getStoredUuid } from '../../AppContext';
+import { ChangePassword, ReauthenticateUser } from '../../../firebase/FirestoreFunctions';
 
 
 export interface ChangePasswordFormProps {
@@ -28,19 +30,28 @@ const ChangePasswordScreen: FC<any> = ({navigation}) => {
     clearErrors
   } = useForm<ChangePasswordFormProps>();
 
-  const onSubmit = (data: ChangePasswordFormProps) => {
-    console.log(data)
-    setIsSubmitted(true);
+  const onSubmit = async (data: ChangePasswordFormProps) => {
+    // console.log(data)
+    const res = await ChangePassword(data.newPassword)
+    if (res) {
+      console.log(res)
+    } else {
+      setIsSubmitted(true);
+    }
+    
   };
 
-  const handledButtonPress = () => {
+  const handledButtonPress = async () => {
     const {oldPassword, newPassword, confirmPassword} = getValues();
 
     // call function to validate password here instead of hard code
-    if (oldPassword !== "Louis16") {
+    const res = await ReauthenticateUser(oldPassword);
+
+    if (res === "wrongPass") {
       setError("oldPassword", { type: "manual", message: "Incorrect Password" })
       
-    } else if (newPassword !== confirmPassword) {
+    }
+    else if (newPassword !== confirmPassword) {
 
       const errorConfig = {type: "manual", message: "Passwords do not match"}
       setError("newPassword", errorConfig)
@@ -70,7 +81,7 @@ const ChangePasswordScreen: FC<any> = ({navigation}) => {
           Change Your Password
         </HeaderText>
         <SubheaderText>
-          Forgot you password? No worries
+          Forgot you password? No worries!
         </SubheaderText>
       </HeaderTextWrapper>
 
@@ -107,7 +118,7 @@ const ChangePasswordScreen: FC<any> = ({navigation}) => {
       </InputWrapper>
 
       <SubmitButtonWrapper>
-        <CircleButton onPress={handleSubmit(onSubmit)} />
+        <CircleButton onPress={handleSubmit(handledButtonPress)} />
       </SubmitButtonWrapper>
 
     </ScreenWrapperComp>
