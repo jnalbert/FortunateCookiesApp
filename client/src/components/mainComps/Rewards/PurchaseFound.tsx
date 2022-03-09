@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import React, { FC, useState, useEffect } from "react";
 import { View, ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
+import { PurchaseData } from "../../../screens/main/rewards/ConfirmPurchaseScreen";
 import BasicButton from "../../../shared/BasicButton";
 import { Black, FrankFurter, Nunito } from "../../../shared/colors";
 import CookiePurchaseSection, { CookieDataType } from "./CookiePurchaseSection";
@@ -27,10 +28,10 @@ const ButtonWrapper = styled.View`
 `;
 
 interface Props {
-  code: string;
+  purchaseData: PurchaseData;
 }
 
-const PurchaseFound: FC<Props> = ({ code }) => {
+const PurchaseFound: FC<Props> = ({ purchaseData }) => {
   const [cookieData, setCookieData] = useState<CookieDataType[]>([
     {
       name: "",
@@ -46,39 +47,41 @@ const PurchaseFound: FC<Props> = ({ code }) => {
 
   useEffect(() => {
     // Get cookie data from backend
-    const cookieData: CookieDataType[] = [
-      {
-        name: "Love Advice",
-        count: 96,
-        price: 199.99,
-        layout: "4 x 8 x 3",
-        points: 100,
-        imgSrc:
-          "https://fortunatecookies.store/wp-content/uploads/2022/01/loveFortune.png",
-        color: "#FF70A0",
-      },
-      {
-        name: "Love Advice",
-        count: 96,
-        price: 199.99,
-        layout: "4 x 8 x 3",
-        points: 100,
-        imgSrc:
-          "https://fortunatecookies.store/wp-content/uploads/2022/01/loveFortune.png",
-        color: "#FF70A0",
-      },
-      {
-        name: "Love Advice",
-        count: 96,
-        price: 199.99,
-        layout: "4 x 8 x 3",
-        points: 100,
-        imgSrc:
-          "https://fortunatecookies.store/wp-content/uploads/2022/01/loveFortune.png",
-        color: "#FF70A0",
-      },
-    ];
-    setCookieData(cookieData);
+    // const cookieData: CookieDataType[] = [
+    //   {
+    //     name: "Love Advice",
+    //     count: 96,
+    //     price: 199.99,
+    //     layout: "4 x 8 x 3",
+    //     points: 100,
+    //     imgSrc:
+    //       "https://fortunatecookies.store/wp-content/uploads/2022/01/loveFortune.png",
+    //     color: "#FF70A0",
+    //   },
+    //   {
+    //     name: "Love Advice",
+    //     count: 96,
+    //     price: 199.99,
+    //     layout: "4 x 8 x 3",
+    //     points: 100,
+    //     imgSrc:
+    //       "https://fortunatecookies.store/wp-content/uploads/2022/01/loveFortune.png",
+    //     color: "#FF70A0",
+    //   },
+    //   {
+    //     name: "Love Advice",
+    //     count: 96,
+    //     price: 199.99,
+    //     layout: "4 x 8 x 3",
+    //     points: 100,
+    //     imgSrc:
+    //       "https://fortunatecookies.store/wp-content/uploads/2022/01/loveFortune.png",
+    //     color: "#FF70A0",
+    //   },
+    // ];
+    // setCookieData(cookieData);
+    setCookieData(purchaseData.products);
+
 
     setIsLoading(false);
   }, []);
@@ -96,7 +99,7 @@ const PurchaseFound: FC<Props> = ({ code }) => {
         </LoadingWrapper>
       ) : (
         <OverallWrapper>
-          {cookieData.map(
+            {cookieData.map(
             (
               {
                 name,
@@ -108,7 +111,7 @@ const PurchaseFound: FC<Props> = ({ code }) => {
                 color,
               }: CookieDataType,
               index: number
-            ) => {
+              ) => {
               return (
                 <CookiePurchaseSection
                   name={name}

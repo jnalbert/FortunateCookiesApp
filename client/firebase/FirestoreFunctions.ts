@@ -138,12 +138,33 @@ export const ReauthenticateUser = async (password: string) => {
 
 }
 
-export const DoesPurchaseExist = async (code: string) => { 
+const getIndividualCookieData = async (name: string) => { 
+  const purchaseDoc = await getDoc(doc(db, "CookiesInfo", name));
+  return purchaseDoc.data();
+}
+
+export const getPurchaseDataWithCode = async (code: string) => { 
   try {
-    const purchaseDoc = await getDoc(doc(db, "users", code));
-    
+    const purchaseDoc = await getDoc(doc(db, "orders", code));
+    const purchaseData = purchaseDoc.data();
+    // console.log('purchaseData', purchaseData)
+    if (!purchaseData) {
+      return null;
+    }
+    // console.log('purchase data')
+    const productsWithData: any[] = []
+    const products = purchaseData.products;
+    for (let i = 0; i < products.length; i++) {
+      const cookieData = await getIndividualCookieData(products[i]);
+      productsWithData.push(cookieData)
+    }
+    return {
+      date: purchaseData.date,
+      products: productsWithData,
+    }
   } catch (error) {
     console.log(error);
   }
 }
+
 

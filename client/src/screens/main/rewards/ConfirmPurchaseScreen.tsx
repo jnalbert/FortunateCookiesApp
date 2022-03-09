@@ -4,6 +4,8 @@ import ScreenWrapperComp from "../../../shared/ScreenWrapperComp";
 import styled from "styled-components/native";
 import NotFoundPurchase from "../../../components/mainComps/Rewards/NotFoundPurchase";
 import PurchaseFound from "../../../components/mainComps/Rewards/PurchaseFound";
+import { getPurchaseDataWithCode } from "../../../../firebase/FirestoreFunctions";
+import { CookieDataType } from "../../../components/mainComps/Rewards/CookiePurchaseSection";
 
 
 const LoadingWrapper = styled.View`
@@ -17,21 +19,34 @@ interface Props {
   route: any;
 }
 
+export interface PurchaseData {
+  date: string;
+  products: CookieDataType[];
+}
 
 const ConfirmPurchaseScreen: FC<Props> = ({ route }) => {
   const code = route.params;
   
   const [isCodeValid, setIsCodeValid] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [purchaseData, setPurchaseData] = useState<PurchaseData>({ date: "", products: [] });
+  
+  const getData = async () => {
+    const purchaseData: any = await getPurchaseDataWithCode(code);
+    // console.log(purchaseData, "HERE");
+    if (!purchaseData) { 
+      setIsCodeValid(false)
+    } else {
+      setIsCodeValid(true)
+      setPurchaseData(purchaseData);
+    
+    }
+    setIsLoading(false)
+  }
 
   useEffect(() => { 
     // logic to check if is correct
-    const isValid = true;
-    
-    setIsCodeValid(isValid)
-    setIsLoading(false)
-   
-
+    getData()
   }, [])
   // console.log(code);
   return (
@@ -42,7 +57,7 @@ const ConfirmPurchaseScreen: FC<Props> = ({ route }) => {
         </LoadingWrapper>
         :
         (<>
-          {isCodeValid ? <PurchaseFound code={code}/> : <NotFoundPurchase />}
+          {isCodeValid ? <PurchaseFound purchaseData={purchaseData}/> : <NotFoundPurchase />}
         </>
         )
       }

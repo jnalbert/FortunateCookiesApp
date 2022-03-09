@@ -6,7 +6,7 @@ import { Black, FrankFurter, Poppins } from '../../../shared/colors';
 import { useNavigation } from '@react-navigation/native';
 
 const OverallWrapper = styled.View`
-  /* padding-top: 40%; */
+  padding-top: 50%;
   height: 100%;
   justify-content: center;
   /* align-items: center; */
@@ -32,7 +32,7 @@ const SubheaderText = styled.Text`
 
 const ButtonWrapper = styled.View`
   justify-content: center;
-  padding-top: 50px;
+  padding-top: 40px;
 `
 
 const NotFoundPurchase: FC = () => {
