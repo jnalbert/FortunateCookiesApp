@@ -1,6 +1,6 @@
 import { Auth, db, storage } from "../config/firebase";
 import { UserTypeClient, NewsCardTypeDB } from './types/MiscTypes';
-import { setDoc, doc, collection, getDoc, getDocs } from "firebase/firestore"; 
+import { setDoc, doc, collection, getDoc, getDocs, updateDoc, increment } from "firebase/firestore"; 
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { reauthenticateWithCredential, signInWithEmailAndPassword, updatePassword } from "firebase/auth";
 import { CookieDataType } from "../src/components/mainComps/Rewards/CookiePurchaseSection";
@@ -166,9 +166,39 @@ export const getPurchaseDataWithCode = async (code: string) => {
   }
 }
 
-export const addOrderToProfile = async (uuid: string, orderData: CookieDataType[]) => {
+export const addOrderToProfile = async (uuid: string, orderData: CookieDataType[], code: string) => {
   try {
-    const userDoc = await getDoc(doc(db, "users", uuid));
+    let totalCookiesPurchased = 0;
+    orderData.forEach(cookie => {
+      totalCookiesPurchased += cookie.count;
+    })
+
+    const date = orderData[0].date;
+
+    const purchaseDoc = await getDoc(doc(db, "orders", code));
+    const purchaseData = purchaseDoc.data()
+
+    const returnProducts = []
+    for (let i = 0; i < purchaseData?.products.length; i++) { 
+      const product = purchaseData?.products[i];
+      // console.log(product)
+      const returnProductAdd = {product, date: date }
+      returnProducts.push(returnProductAdd)
+    }
+
+    // console.log(returnProducts)
+
+    const userDoc = doc(db, "users", uuid);
+    await updateDoc(userDoc, {
+      totalCookiesPurchased: increment(totalCookiesPurchased),
+    })
+
+    for (let i = 0; i < returnProducts.length; i++) { 
+      await setDoc(doc(collection(db, `users/${uuid}/purchases/`)), {
+        date: returnProducts[i].date,
+        product: returnProducts[i].product,
+      });
+    }
 
   } catch (error) {
     console.log(error)

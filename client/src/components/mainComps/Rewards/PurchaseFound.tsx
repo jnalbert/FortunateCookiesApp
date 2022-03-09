@@ -30,9 +30,10 @@ const ButtonWrapper = styled.View`
 
 interface Props {
   purchaseData: CookieDataType[];
+  code: string
 }
 
-const PurchaseFound: FC<Props> = ({ purchaseData }) => {
+const PurchaseFound: FC<Props> = ({ purchaseData, code }) => {
   const [cookieData, setCookieData] = useState<CookieDataType[]>([
     {
       name: "",
@@ -92,7 +93,7 @@ const PurchaseFound: FC<Props> = ({ purchaseData }) => {
   const handleBackToRewards = async () => {
 
     const uuid = await _getStoredUuid();
-    await addOrderToProfile(uuid as string, purchaseData)
+    await addOrderToProfile(uuid as string, purchaseData, code)
 
     navigator.navigate("Rewards");
   };

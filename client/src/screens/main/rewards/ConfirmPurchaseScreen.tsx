@@ -54,7 +54,7 @@ const ConfirmPurchaseScreen: FC<Props> = ({ route }) => {
         </LoadingWrapper>
         :
         (<>
-          {isCodeValid ? <PurchaseFound purchaseData={purchaseData}/> : <NotFoundPurchase />}
+          {isCodeValid ? <PurchaseFound purchaseData={purchaseData} code={code} /> : <NotFoundPurchase />}
         </>
         )
       }
