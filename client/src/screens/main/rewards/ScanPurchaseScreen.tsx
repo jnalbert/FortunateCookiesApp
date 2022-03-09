@@ -11,6 +11,7 @@ import BasicButton from '../../../shared/BasicButton';
 
 
 
+
 const CodeInputWrapper = styled.View`
   
 `
@@ -41,7 +42,7 @@ const ScanPurchaseScreen: FC = () => {
 
   const [code, setCode] = useState('')
 
-  const ProceedToNextScreen = () => {
+  const ProceedToNextScreen = async () => {
 
     // // *** DEV MODE ***
     setCode("34556")

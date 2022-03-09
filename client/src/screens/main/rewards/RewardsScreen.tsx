@@ -62,7 +62,7 @@ const RewardsScreen: FC<any> = ({}) => {
     const resPoints = await GetRewardsData(uuid)
     // console.log('first', resPoints)
 
-    setPoints(resPoints % 50)
+    setPoints(resPoints || 0)
   }
 
   useEffect(() => {

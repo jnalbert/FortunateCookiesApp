@@ -91,7 +91,10 @@ export const GetRewardsData = async (uuid: string) => {
   try {
     const userDoc = await getDoc(doc(db, "users", uuid));
     const userData = userDoc.data()
-    return userData?.totalPointsEarned;
+    const totalPointsEarned = userData?.totalPointsEarned;
+    const totalRewardsEarned = userData?.totalRewardsEarned;
+    const totalUsablePoints = totalPointsEarned - (totalRewardsEarned * 50);
+    return totalUsablePoints;
   } catch (error) {
     console.log(error);
   }
@@ -134,3 +137,13 @@ export const ReauthenticateUser = async (password: string) => {
   }
 
 }
+
+export const DoesPurchaseExist = async (code: string) => { 
+  try {
+    const purchaseDoc = await getDoc(doc(db, "users", code));
+    
+  } catch (error) {
+    console.log(error);
+  }
+}
+
