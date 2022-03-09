@@ -2,10 +2,11 @@ import { useNavigation } from "@react-navigation/native";
 import React, { FC, useState, useEffect } from "react";
 import { View, ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
-import { PurchaseData } from "../../../screens/main/rewards/ConfirmPurchaseScreen";
 import BasicButton from "../../../shared/BasicButton";
 import { Black, FrankFurter, Nunito } from "../../../shared/colors";
 import CookiePurchaseSection, { CookieDataType } from "./CookiePurchaseSection";
+import { _getStoredUuid } from '../../../AppContext';
+import { addOrderToProfile } from "../../../../firebase/FirestoreFunctions";
 
 const LoadingWrapper = styled.View`
   width: 100%;
@@ -28,7 +29,7 @@ const ButtonWrapper = styled.View`
 `;
 
 interface Props {
-  purchaseData: PurchaseData;
+  purchaseData: CookieDataType[];
 }
 
 const PurchaseFound: FC<Props> = ({ purchaseData }) => {
@@ -41,6 +42,7 @@ const PurchaseFound: FC<Props> = ({ purchaseData }) => {
       points: 0,
       imgSrc: "",
       color: "",
+      date: "",
     },
   ]);
   const [isLoading, setIsLoading] = useState(true);
@@ -80,14 +82,18 @@ const PurchaseFound: FC<Props> = ({ purchaseData }) => {
     //   },
     // ];
     // setCookieData(cookieData);
-    setCookieData(purchaseData.products);
+    setCookieData(purchaseData);
 
 
     setIsLoading(false);
   }, []);
 
   const navigator: any = useNavigation();
-  const handleBackToRewards = () => {
+  const handleBackToRewards = async () => {
+
+    const uuid = await _getStoredUuid();
+    await addOrderToProfile(uuid as string, purchaseData)
+
     navigator.navigate("Rewards");
   };
 
@@ -109,11 +115,13 @@ const PurchaseFound: FC<Props> = ({ purchaseData }) => {
                 points,
                 imgSrc,
                 color,
+                date,
               }: CookieDataType,
               index: number
               ) => {
               return (
                 <CookiePurchaseSection
+                  date={date}
                   name={name}
                   count={count}
                   price={price}

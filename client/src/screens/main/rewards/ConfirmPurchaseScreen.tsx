@@ -19,17 +19,14 @@ interface Props {
   route: any;
 }
 
-export interface PurchaseData {
-  date: string;
-  products: CookieDataType[];
-}
+
 
 const ConfirmPurchaseScreen: FC<Props> = ({ route }) => {
   const code = route.params;
   
   const [isCodeValid, setIsCodeValid] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [purchaseData, setPurchaseData] = useState<PurchaseData>({ date: "", products: [] });
+  const [purchaseData, setPurchaseData] = useState<CookieDataType[]>([]);
   
   const getData = async () => {
     const purchaseData: any = await getPurchaseDataWithCode(code);

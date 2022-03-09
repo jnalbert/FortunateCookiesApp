@@ -75,6 +75,7 @@ export interface CookieDataType {
   points: number;
   imgSrc: string;
   color: string;
+  date: string;
 }
 
 const CookiePurchaseSection: FC<CookieDataType> = ({

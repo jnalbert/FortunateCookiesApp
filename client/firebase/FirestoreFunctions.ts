@@ -3,6 +3,8 @@ import { UserTypeClient, NewsCardTypeDB } from './types/MiscTypes';
 import { setDoc, doc, collection, getDoc, getDocs } from "firebase/firestore"; 
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { reauthenticateWithCredential, signInWithEmailAndPassword, updatePassword } from "firebase/auth";
+import { CookieDataType } from "../src/components/mainComps/Rewards/CookiePurchaseSection";
+
 
 
 export const addNewAccountToDB = async ({
@@ -156,15 +158,19 @@ export const getPurchaseDataWithCode = async (code: string) => {
     const products = purchaseData.products;
     for (let i = 0; i < products.length; i++) {
       const cookieData = await getIndividualCookieData(products[i]);
-      productsWithData.push(cookieData)
+      productsWithData.push({ ...cookieData, date: purchaseData.date})
     }
-    return {
-      date: purchaseData.date,
-      products: productsWithData,
-    }
+    return productsWithData;
   } catch (error) {
     console.log(error);
   }
 }
 
+export const addOrderToProfile = async (uuid: string, orderData: CookieDataType[]) => {
+  try {
+    const userDoc = await getDoc(doc(db, "users", uuid));
 
+  } catch (error) {
+    console.log(error)
+  }
+}
