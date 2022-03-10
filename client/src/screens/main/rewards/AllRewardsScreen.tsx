@@ -1,10 +1,12 @@
-import React, { FC } from 'react';
-import { View } from 'react-native';
+import React, { FC, useState } from 'react';
+import { RefreshControl, View } from 'react-native';
 import styled from 'styled-components/native';
 import CookieRewardComp from '../../../components/mainComps/Rewards/CookieRewardComp';
-import { CookiesSectionWrapper, HeaderText } from '../../../components/mainComps/Rewards/RewardsHistoryComp';
+import { HeaderText } from '../../../components/mainComps/Rewards/RewardsHistoryComp';
 import ScreenWrapperComp from '../../../shared/ScreenWrapperComp';
 import { RewardCookieType } from '../../../components/mainComps/Rewards/CookieRewardComp';
+import { _getStoredUuid } from '../../../AppContext';
+import { getAllCookieData } from '../../../../firebase/FirestoreFunctions';
 
 const OverallWrapper = styled.View`
   width: 100%;
@@ -26,17 +28,29 @@ const CookieSectionWrapper = styled.View`
 
 const AllRewardsScreen: FC<any> = ({ route }) => {
   const { rewardCookies } = route.params;
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [cookieData, setCookieData] = useState<RewardCookieType[]>(rewardCookies);
+
+  const getCookiePurchases = async () => {
+    setIsRefreshing(true);
+    const uuid = await _getStoredUuid() as string
+    const cookieData: any = await getAllCookieData(uuid)
+    setCookieData(cookieData)
+    setIsRefreshing(false)
+  }
   
   return (
-    <ScreenWrapperComp scrollView>
+    <ScreenWrapperComp scrollView refreshControl={
+      <RefreshControl refreshing={isRefreshing} onRefresh={async () => await getCookiePurchases()} />
+  }>
       <OverallWrapper>
         <HeaderWrapper>
           <HeaderText>All Purchases</HeaderText>
         </HeaderWrapper>
         
-        <CookieSectionWrapper >
-        {rewardCookies.map(({imgUrl, header, date, cookieType, cookieCount, points, color}:RewardCookieType, index: number) => {
-          return <CookieRewardComp imgUrl={imgUrl} header={header} date={new Date(date)} cookieType={cookieType} cookieCount={cookieCount} points={points} color={color} key={index}/>
+        <CookieSectionWrapper  >
+        {cookieData.map(({imgSrc, name, date, header, count, points, color, layout, price}:RewardCookieType, index: number) => {
+          return <CookieRewardComp layout={layout} price={price} imgSrc={imgSrc} name={name} date={new Date(date)} header={header} count={count} points={points} color={color} key={index}/>
         })}
       </CookieSectionWrapper>
 

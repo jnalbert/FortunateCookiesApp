@@ -204,3 +204,31 @@ export const addOrderToProfile = async (uuid: string, orderData: CookieDataType[
     console.log(error)
   }
 }
+
+
+export const getAllCookieData = async (uuid: string) => {
+  try {
+    const allDocInList = await getDocs(collection(db, `users/${uuid}/purchases/`));
+    const getFormattedData = await allDocInList.docs.map((doc: any) => doc.data());
+    // console.log(getFormattedData, "Here")
+    const returnList: any[] = [];
+    for (let i = 0; i < getFormattedData.length; i++) { 
+      // console.log(getFormattedData[i])
+      returnList.push({product: getFormattedData[i].product, date: getFormattedData[i].date})
+    }
+    
+    // console.log(returnList)
+
+    const formattedCookies: any[] = []
+
+    for (let i = 0; i < returnList.length; i++) {
+      const cookieData = await getIndividualCookieData(returnList[i].product);
+      formattedCookies.push({ ...cookieData, date: returnList[i].date, header: "Fortune Cookies"})
+    }
+
+    return formattedCookies;
+
+  } catch (error) {
+    console.log(error)
+  }
+}

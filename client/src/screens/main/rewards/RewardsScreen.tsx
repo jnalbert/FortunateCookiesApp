@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import { _getStoredUuid } from '../../../AppContext';
 import { GetRewardsData } from '../../../../firebase/FirestoreFunctions';
 
+
 const DonutChartWrapper = styled.View`
   padding-top: 25px;
 `
@@ -64,6 +65,7 @@ const RewardsScreen: FC<any> = ({}) => {
 
     setPoints(resPoints || 0)
   }
+
 
   useEffect(() => {
     GetPoints()

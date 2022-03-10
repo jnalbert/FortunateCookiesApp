@@ -1,11 +1,13 @@
-import React, { FC, useState } from 'react';
-import { View } from 'react-native';
+import React, { FC, useEffect, useState } from 'react';
+import { View, RefreshControl } from 'react-native';
 import styled from 'styled-components/native';
 import { Black, GreenFor, Nunito, Pink, Teal, YellowFor } from '../../../shared/colors';
 
 import { AntDesign } from '@expo/vector-icons'; 
 import CookieRewardComp, { RewardCookieType } from './CookieRewardComp';
 import { useNavigation } from '@react-navigation/native';
+import { _getStoredUuid } from '../../../AppContext';
+import { getAllCookieData } from '../../../../firebase/FirestoreFunctions';
 
 const OverallWrapper = styled.View`
   padding-top: 25px;
@@ -47,49 +49,65 @@ export const CookiesSectionWrapper = styled.ScrollView`
 `
 
 
-const Cookies: RewardCookieType[] = [
-  {
-    imgUrl: "https://fortunatecookies.store/wp-content/uploads/2022/01/loveFortune.png",
-    header: "Fortune Cookies",
-    date: "2022-02-10T20:07:48.211Z",
-    cookieType: "Love Advice",
-    cookieCount: 125,
-    points: 25,
-    color: Pink
-  },
-  {
-    imgUrl: "https://fortunatecookies.store/wp-content/uploads/2022/01/affirmation-fortune.png",
-    header: "Fortune Cookies",
-    date: "2020-01-01",
-    cookieType: "Affirmations",
-    cookieCount: 125,
-    points: 25,
-    color: Teal
-  },
-  {
-    imgUrl: "https://fortunatecookies.store/wp-content/uploads/2022/01/jokesFortune.png",
-    header: "Fortune Cookies",
-    date: "2020-01-01",
-    cookieType: "Jokes",
-    cookieCount: 125,
-    points: 25,
-    color: YellowFor
-  },
-  {
-    imgUrl: "https://fortunatecookies.store/wp-content/uploads/2022/01/sustainabilityFortune.png",
-    header: "Fortune Cookies",
-    date: "2020-01-01",
-    cookieType: "Love Advice",
-    cookieCount: 125,
-    points: 25,
-    color: GreenFor
-  },
+// const Cookies: RewardCookieType[] = [
+//   {
+//     imgUrl: "https://fortunatecookies.store/wp-content/uploads/2022/01/loveFortune.png",
+//     header: "Fortune Cookies",
+//     date: "2022-02-10T20:07:48.211Z",
+//     cookieType: "Love Advice",
+//     cookieCount: 125,
+//     points: 25,
+//     color: Pink
+//   },
+//   {
+//     imgUrl: "https://fortunatecookies.store/wp-content/uploads/2022/01/affirmation-fortune.png",
+//     header: "Fortune Cookies",
+//     date: "2020-01-01",
+//     cookieType: "Affirmations",
+//     cookieCount: 125,
+//     points: 25,
+//     color: Teal
+//   },
+//   {
+//     imgUrl: "https://fortunatecookies.store/wp-content/uploads/2022/01/jokesFortune.png",
+//     header: "Fortune Cookies",
+//     date: "2020-01-01",
+//     cookieType: "Jokes",
+//     cookieCount: 125,
+//     points: 25,
+//     color: YellowFor
+//   },
+//   {
+//     imgUrl: "https://fortunatecookies.store/wp-content/uploads/2022/01/sustainabilityFortune.png",
+//     header: "Fortune Cookies",
+//     date: "2020-01-01",
+//     cookieType: "Love Advice",
+//     cookieCount: 125,
+//     points: 25,
+//     color: GreenFor
+//   },
 
-]
+// ]
+
+
 
 const RewardsHistoryComp: FC = () => {
 
-  const [rewardCookies, setRewardCookies] = useState<RewardCookieType[]>(Cookies)
+  const [rewardCookies, setRewardCookies] = useState<RewardCookieType[]>([])
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+
+  const getCookiePurchases = async () => {
+    setIsRefreshing(true);
+    const uuid = await _getStoredUuid() as string
+    const cookieData: any = await getAllCookieData(uuid)
+    setRewardCookies(cookieData)
+    setIsRefreshing(false)
+  }
+  
+  useEffect(() => {
+    getCookiePurchases()
+  }, [])
 
   const navigation: any = useNavigation()
 
@@ -108,13 +126,15 @@ const RewardsHistoryComp: FC = () => {
         </HeaderContentWrapper>
       </HeaderWrapper>
 
-      <CookiesSectionWrapper >
-        {rewardCookies.map(({imgUrl, header, date, cookieType, cookieCount, points, color}:RewardCookieType, index: number) => {
-          return <CookieRewardComp imgUrl={imgUrl} header={header} date={new Date(date)} cookieType={cookieType} cookieCount={cookieCount} points={points} color={color} key={index}/>
+        <CookiesSectionWrapper refreshControl={
+          <RefreshControl refreshing={isRefreshing} onRefresh={async () => await getCookiePurchases()} />
+      }>
+        {rewardCookies.map(({imgSrc, name, date, header, count, points, color, layout, price}:RewardCookieType, index: number) => {
+          return <CookieRewardComp layout={layout} price={price} imgSrc={imgSrc} name={name} date={new Date(date)} header={header} count={count} points={points} color={color} key={index}/>
         })}
       </CookiesSectionWrapper>
 
-    </OverallWrapper>
+      </OverallWrapper>
   )
 }
 

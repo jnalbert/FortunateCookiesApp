@@ -36,7 +36,9 @@ const TopInfoWrapper = styled.View`
 
 const HeaderTextWrapper = styled.View`
   align-items: center;
+  flex-direction: row;
   justify-content: flex-start;
+  width: 55%;
 `
 
 const HeaderText = styled.Text`
@@ -44,12 +46,13 @@ const HeaderText = styled.Text`
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.25px;
+  
 `
 
 const DateWrapper = styled.View`
   align-items: center;
   justify-content: flex-end;
-  width: 50%;
+  width: 20%;
 `
 
 const DateText = styled.Text`
@@ -123,20 +126,22 @@ const BorderBlock = styled.View`
 `
 
 export interface RewardCookieType {
-  imgUrl: string;
+  imgSrc: string;
+  name: string;
   header: string;
-  cookieType: string;
-  cookieCount: number;
+  layout: string;
+  count: number;
   points: number;
   date: any;
   color: string;
+  price: number;
 }
 
 const CookieRewardComp: FC<RewardCookieType> = ({
-  imgUrl,
+  imgSrc,
+  name,
   header,
-  cookieType,
-  cookieCount,
+  count,
   points,
   date,
   color,
@@ -154,7 +159,7 @@ const CookieRewardComp: FC<RewardCookieType> = ({
     <>
     <OverallWrapper>
       <CookieImageWrapper>
-        <CookieImage source={{ uri: imgUrl }} style={{width: 75, height: 75}}/>
+        <CookieImage source={{ uri: imgSrc }} style={{width: 75, height: 75}}/>
       </CookieImageWrapper>
 
       <OverallInfoWrapper>
@@ -170,10 +175,10 @@ const CookieRewardComp: FC<RewardCookieType> = ({
         <BottomInfoWrapper>
           <CookiesInfoWrapper>
             <CookieTypeWrapper>
-              <CookieTypeText style={{color: color}}>{cookieType}</CookieTypeText>
+              <CookieTypeText style={{color: color}}>{name}</CookieTypeText>
             </CookieTypeWrapper>
             <CookieCountWrapper>
-              <CookieCountText>{cookieCount} cookies</CookieCountText>
+              <CookieCountText>{count} cookies</CookieCountText>
             </CookieCountWrapper>
           </CookiesInfoWrapper>
 
