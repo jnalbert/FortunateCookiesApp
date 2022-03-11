@@ -34,13 +34,14 @@ interface BasicButtonProps {
   style?: {};
   buttonTextStyle?: {};
   gradient?: boolean;
+  isDisabled?: boolean;
 }
 
-const BasicButton: FC<BasicButtonProps> = ({ title, onPress, style, buttonTextStyle, gradient }) => {
+const BasicButton: FC<BasicButtonProps> = ({ title, onPress, style, buttonTextStyle, gradient, isDisabled }) => {
   
   const DisplayMeat = () => {
     return (
-        <TouchableButtonWrapper style={style} onPress={onPress}>
+        <TouchableButtonWrapper disabled={isDisabled} style={style} onPress={onPress}>
           <ButtonText style={buttonTextStyle} >{title}</ButtonText>
         </TouchableButtonWrapper>
     )

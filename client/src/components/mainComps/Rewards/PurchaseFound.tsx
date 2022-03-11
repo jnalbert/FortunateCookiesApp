@@ -47,6 +47,7 @@ const PurchaseFound: FC<Props> = ({ purchaseData, code }) => {
     },
   ]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
     // Get cookie data from backend
@@ -92,6 +93,7 @@ const PurchaseFound: FC<Props> = ({ purchaseData, code }) => {
   const navigator: any = useNavigation();
   const handleBackToRewards = async () => {
 
+    setIsDisabled(true)
     const uuid = await _getStoredUuid();
     await addOrderToProfile(uuid as string, purchaseData, code)
 
@@ -137,7 +139,8 @@ const PurchaseFound: FC<Props> = ({ purchaseData, code }) => {
           )}
           <ButtonWrapper>
             <BasicButton
-              title="Add Product"
+                title="Add Product"
+                isDisabled={isDisabled}
               onPress={handleBackToRewards}
               style={{
                 width: "100%",
