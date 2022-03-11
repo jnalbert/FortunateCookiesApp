@@ -169,8 +169,10 @@ export const getPurchaseDataWithCode = async (code: string) => {
 export const addOrderToProfile = async (uuid: string, orderData: CookieDataType[], code: string) => {
   try {
     let totalCookiesPurchased = 0;
+    let totalPoints = 0;
     orderData.forEach(cookie => {
       totalCookiesPurchased += cookie.count;
+      totalPoints += cookie.points;
     })
 
     const date = orderData[0].date;
@@ -191,6 +193,7 @@ export const addOrderToProfile = async (uuid: string, orderData: CookieDataType[
     const userDoc = doc(db, "users", uuid);
     await updateDoc(userDoc, {
       totalCookiesPurchased: increment(totalCookiesPurchased),
+      totalPointsEarned: increment(totalPoints),
     })
 
     for (let i = 0; i < returnProducts.length; i++) { 
