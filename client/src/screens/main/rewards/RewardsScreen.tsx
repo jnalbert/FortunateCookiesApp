@@ -1,5 +1,5 @@
-import React, { FC, useState, useEffect } from 'react';
-import { View } from 'react-native';
+import React, { FC, useState, useEffect, useRef } from 'react';
+import { RefreshControl, View } from 'react-native';
 import styled from 'styled-components/native';
 import DonutChart from '../../../components/mainComps/Rewards/DonutChart';
 import { Black, Nunito, Teal, backgroundColor } from '../../../shared/colors';
@@ -38,6 +38,7 @@ const MAX_POINTS = 50;
 const RewardsScreen: FC<any> = ({}) => {
 
   const [points, setPoints] = useState(0)
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const displayMessage = () => {
     if(points >= MAX_POINTS) {
@@ -59,11 +60,12 @@ const RewardsScreen: FC<any> = ({}) => {
   }
 
   const GetPoints = async () => {
+    setIsRefreshing(true)
     const uuid = await _getStoredUuid() as string
     const resPoints = await GetRewardsData(uuid)
     // console.log('first', resPoints)
-
     setPoints(resPoints || 0)
+    setIsRefreshing(false)
   }
 
 
@@ -71,8 +73,16 @@ const RewardsScreen: FC<any> = ({}) => {
     GetPoints()
   }, [])
 
+
+  const GetCookiesRef = useRef(null) as any
+
   return (
-    <ScreenWrapperComp scrollView>
+    <ScreenWrapperComp scrollView refreshControl={
+      <RefreshControl refreshing={isRefreshing} onRefresh={async () => {
+        await GetPoints()
+        GetCookiesRef?.current()
+      }} />
+    }>
       <DonutChartWrapper>
         <DonutChart percentage={points} radius={100} strokeWidth={10} duration={500} color={Teal} delay={0} max={MAX_POINTS}/>
       </DonutChartWrapper>
@@ -85,7 +95,7 @@ const RewardsScreen: FC<any> = ({}) => {
         <BasicButton title="Add Purchase" onPress={addPurchasePress} style={{width: "100%", height: 50, backgroundColor: "transparent"}} gradient/>
       </AddPurchaseWrapper>
 
-      <RewardsHistoryComp />
+      <RewardsHistoryComp childRef={GetCookiesRef}/>
 
     </ScreenWrapperComp>
   )

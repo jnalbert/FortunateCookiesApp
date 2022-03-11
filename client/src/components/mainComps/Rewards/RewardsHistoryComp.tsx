@@ -1,7 +1,7 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, Ref, useEffect, useState } from 'react';
 import { View, RefreshControl } from 'react-native';
 import styled from 'styled-components/native';
-import { Black, GreenFor, Nunito, Pink, Teal, YellowFor } from '../../../shared/colors';
+import { Black, GreenFor, Nunito, Pink, Teal, Text300, YellowFor, Poppins } from '../../../shared/colors';
 
 import { AntDesign } from '@expo/vector-icons'; 
 import CookieRewardComp, { RewardCookieType } from './CookieRewardComp';
@@ -33,6 +33,16 @@ const HeaderIconWrapper = styled.View`
   padding-left: 20px;
   align-items: center;
   justify-content: center;
+`
+
+export const NoneYetWrapper = styled.View`
+  justify-content: center;
+  align-items: center;
+`
+
+export const NoneYetText = styled.Text`
+  font-family: ${Poppins};
+  color: ${Text300}
 `
 
 export const HeaderText = styled.Text`
@@ -91,10 +101,12 @@ export const CookiesSectionWrapper = styled.ScrollView`
 
 
 
-const RewardsHistoryComp: FC = () => {
+const RewardsHistoryComp: FC<{childRef: any}> = ({childRef}) => {
 
   const [rewardCookies, setRewardCookies] = useState<RewardCookieType[]>([])
   const [isRefreshing, setIsRefreshing] = useState(false);
+ 
+ 
 
 
   const getCookiePurchases = async () => {
@@ -107,7 +119,9 @@ const RewardsHistoryComp: FC = () => {
   
   useEffect(() => {
     getCookiePurchases()
+    childRef.current = getCookiePurchases
   }, [])
+
 
   const navigation: any = useNavigation()
 
@@ -126,6 +140,12 @@ const RewardsHistoryComp: FC = () => {
         </HeaderContentWrapper>
       </HeaderWrapper>
 
+      {rewardCookies.length === 0 && (
+        <NoneYetWrapper>
+          <NoneYetText>No Cookies Yet</NoneYetText>
+        </NoneYetWrapper>
+      )}
+      
         <CookiesSectionWrapper refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={async () => await getCookiePurchases()} />
       }>

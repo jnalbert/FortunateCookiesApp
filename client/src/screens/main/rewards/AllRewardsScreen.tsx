@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { RefreshControl, View } from 'react-native';
 import styled from 'styled-components/native';
 import CookieRewardComp from '../../../components/mainComps/Rewards/CookieRewardComp';
-import { HeaderText } from '../../../components/mainComps/Rewards/RewardsHistoryComp';
+import { HeaderText, NoneYetText, NoneYetWrapper } from '../../../components/mainComps/Rewards/RewardsHistoryComp';
 import ScreenWrapperComp from '../../../shared/ScreenWrapperComp';
 import { RewardCookieType } from '../../../components/mainComps/Rewards/CookieRewardComp';
 import { _getStoredUuid } from '../../../AppContext';
@@ -48,6 +48,11 @@ const AllRewardsScreen: FC<any> = ({ route }) => {
           <HeaderText>All Purchases</HeaderText>
         </HeaderWrapper>
         
+        {rewardCookies.length === 0 && (
+          <NoneYetWrapper>
+            <NoneYetText>No Cookies Yet</NoneYetText>
+          </NoneYetWrapper>
+        )}
         <CookieSectionWrapper  >
         {cookieData.map(({imgSrc, name, date, header, count, points, color, layout, price}:RewardCookieType, index: number) => {
           return <CookieRewardComp layout={layout} price={price} imgSrc={imgSrc} name={name} date={new Date(date)} header={header} count={count} points={points} color={color} key={index}/>
