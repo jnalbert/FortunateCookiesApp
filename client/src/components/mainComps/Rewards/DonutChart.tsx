@@ -53,13 +53,14 @@ const DonutChart: FC<Props> = ({
   };
 
   useEffect(() => {
-    animation(percentage);
+    animation((percentage > 50 ? 50 : percentage));
+    // animation(percentage);
     animated.addListener((v: any) => {
       const maxPerc = 100 * v.value / max;
       const strokeDashoffset = circumference - (circumference * maxPerc) / 100;
       if (inputRef?.current) {
         inputRef.current.setNativeProps({
-          text: `${Math.round(v.value)}/${MAX_POINTS}`,
+          text: `${Math.round(percentage)}/${MAX_POINTS}`,
         });
       }
       if (circleRef?.current) {
