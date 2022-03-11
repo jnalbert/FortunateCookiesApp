@@ -44,7 +44,7 @@ const IntroScreen: FC = () => {
       subHeader: "We aim to put and interesting spin on the classic fortune cookie"
     },
     {
-      imgUrl: "https://fortunatecookies.store/wp-content/uploads/elementor/thumbs/cropped-fortunate-cookies-logo-phm4tuehtem959d20btha2rgqjp22hfqd5681sxgog.png",
+      imgUrl: "https://fortunatecookies.store/wp-content/uploads/2022/01/jokesFortune.png",
       header: "Different Types",
       subHeader: "We have four different genre of fortune cookies"
     },

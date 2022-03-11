@@ -113,7 +113,7 @@ const DashBoardScreen: FC = () => {
 
       <SectionWrapper>
         <SectionHeaderWrapper>
-          <SectionHeader>Our Company</SectionHeader>
+          <SectionHeader>Social Media</SectionHeader>
         </SectionHeaderWrapper>
         <SocialMediaButtonsWrapper>
           <SocialMediaButton onPress={() => {loadInBrowser("https://www.instagram.com/fortunatecookies.vei/")}}>
