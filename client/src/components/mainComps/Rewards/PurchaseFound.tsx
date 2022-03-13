@@ -97,7 +97,7 @@ const PurchaseFound: FC<Props> = ({ purchaseData, code }) => {
     const uuid = await _getStoredUuid();
     await addOrderToProfile(uuid as string, purchaseData, code)
 
-    navigator.navigate("Rewards");
+    navigator.push("Rewards");
   };
 
   return (

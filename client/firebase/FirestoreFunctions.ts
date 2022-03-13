@@ -1,9 +1,10 @@
-import { Auth, db, storage } from "../config/firebase";
+import { Auth, db, functions, storage } from "../config/firebase";
 import { UserTypeClient, NewsCardTypeDB } from './types/MiscTypes';
 import { setDoc, doc, collection, getDoc, getDocs, updateDoc, increment, addDoc } from "firebase/firestore"; 
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { reauthenticateWithCredential, signInWithEmailAndPassword, updatePassword } from "firebase/auth";
 import { CookieDataType } from "../src/components/mainComps/Rewards/CookiePurchaseSection";
+import { connectFunctionsEmulator, httpsCallable } from "firebase/functions";
 
 
 
@@ -249,11 +250,27 @@ export const ClaimReward = async (uuid: string) => {
     const firstName = name.split(" ")[0];
     const lastName = name.split(" ")[1];
 
-    await addDoc(collection(db, "mailCollection"), {
+
+    // await connectFunctionsEmulator(functions, "192.168.1.74", 5000)
+    const sendRewardEmailCF = httpsCallable(functions, "sendRewardEmail");
+
+    await sendRewardEmailCF({
       toEmail: "jnalbert879@gmail.com",
       firstName: firstName,
       lastName: lastName,
-      });
+    }).then(() => {
+      console.log("called Functions")
+    }).catch((error) => {
+      console.log("I failed")
+      console.log(error)
+
+    })
+
+    // await addDoc(collection(db, "mailCollection"), {
+    //   toEmail: "jnalbert879@gmail.com",
+    //   firstName: firstName,
+    //   lastName: lastName,
+    //   });
 
   } catch (error) {
     console.log(error)
