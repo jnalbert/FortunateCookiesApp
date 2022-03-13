@@ -1,6 +1,6 @@
 import { Auth, db, storage } from "../config/firebase";
 import { UserTypeClient, NewsCardTypeDB } from './types/MiscTypes';
-import { setDoc, doc, collection, getDoc, getDocs, updateDoc, increment } from "firebase/firestore"; 
+import { setDoc, doc, collection, getDoc, getDocs, updateDoc, increment, addDoc } from "firebase/firestore"; 
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { reauthenticateWithCredential, signInWithEmailAndPassword, updatePassword } from "firebase/auth";
 import { CookieDataType } from "../src/components/mainComps/Rewards/CookiePurchaseSection";
@@ -230,6 +230,29 @@ export const getAllCookieData = async (uuid: string) => {
     }
 
     return formattedCookies;
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const ClaimReward = async (uuid: string) => {
+  try {
+    const userDoc = doc(db, "users", uuid);
+    await updateDoc(userDoc, {
+      totalRewardsEarned: increment(1),
+    })
+
+    const userData = await GetProfileData(uuid);
+
+    await addDoc(collection(db, "mailCollection"), {
+      to: "jnalbert879@gmail.com",
+      from: "fortunatecookiesrewards@gmail.com",
+      message: {
+        subject: 'Hello from Firebase!',
+        html: 'This is an <code>HTML</code> email body.',
+      },
+        });
 
   } catch (error) {
     console.log(error)

@@ -45,7 +45,7 @@ const ScanPurchaseScreen: FC = () => {
   const ProceedToNextScreen = async () => {
 
     // // *** DEV MODE ***
-    setCode("28239")
+    // setCode("28239")
     // // TURN OFF WHEN NOT USING
 
     // console.log(code);

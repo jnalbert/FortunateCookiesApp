@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React, { FC } from 'react';
 import { View } from 'react-native';
 import AllRewardsScreen from '../../screens/main/rewards/AllRewardsScreen';
+import ClaimRewardScreen from '../../screens/main/rewards/ClaimRewardScreen';
 import ConfirmPurchaseScreen from '../../screens/main/rewards/ConfirmPurchaseScreen';
 import RewardsScreen from '../../screens/main/rewards/RewardsScreen';
 import ScanPurchaseScreen from '../../screens/main/rewards/ScanPurchaseScreen';
@@ -59,6 +60,15 @@ const RewardsNavigator: FC = () => {
         component={ConfirmPurchaseScreen}
         options={{
           headerTitle: () => <StackHeader name="" />,
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="ClaimRewardScreen"
+        component={ClaimRewardScreen}
+        options={{
+          headerTitle: () => <StackHeader name="Claim Reward" />,
           headerShown: false,
         }}
       />
