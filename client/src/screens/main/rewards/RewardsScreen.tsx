@@ -92,9 +92,9 @@ const RewardsScreen: FC<any> = ({}) => {
 
 
   const goToClaimRewards = async () => {
-    const uuid = await _getStoredUuid() as string
-    await ClaimReward(uuid);
     navigator.navigate("ClaimRewardScreen")
+    const uuid = await _getStoredUuid() as string
+    ClaimReward(uuid);
   }
 
 

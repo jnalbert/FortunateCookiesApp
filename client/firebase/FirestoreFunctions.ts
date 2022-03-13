@@ -243,16 +243,17 @@ export const ClaimReward = async (uuid: string) => {
       totalRewardsEarned: increment(1),
     })
 
-    const userData = await GetProfileData(uuid);
+    const userData: any = await GetProfileData(uuid);
+
+    const name = userData.name;
+    const firstName = name.split(" ")[0];
+    const lastName = name.split(" ")[1];
 
     await addDoc(collection(db, "mailCollection"), {
-      to: "jnalbert879@gmail.com",
-      from: "fortunatecookiesrewards@gmail.com",
-      message: {
-        subject: 'Hello from Firebase!',
-        html: 'This is an <code>HTML</code> email body.',
-      },
-        });
+      toEmail: "jnalbert879@gmail.com",
+      firstName: firstName,
+      lastName: lastName,
+      });
 
   } catch (error) {
     console.log(error)
