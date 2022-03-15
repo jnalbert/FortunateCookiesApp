@@ -20,7 +20,7 @@ const CookiesData: CookieType[] = [
     imageStyle: {}
   },
   {
-    imageSrc: "https://firebasestorage.googleapis.com/v0/b/fortunatecookies-4940a.appspot.com/o/DashBoardImgs%2FcookieDesigns%2FAfermations.png?alt=media&token=aa0a8cf7-9d00-4194-990b-2ad77ad11c19",
+    imageSrc: "https://firebasestorage.googleapis.com/v0/b/fortunatecookies-4940a.appspot.com/o/DashBoardImgs%2FcookieDesigns%2FAffirmations.png?alt=media&token=b21ee7f5-59e6-483f-9b23-2c2072a2aac7",
     name: "Affirmations",
     textStyle: { color: Teal },
     imageStyle: {width: 130, height: 130}

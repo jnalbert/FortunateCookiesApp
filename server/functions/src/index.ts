@@ -17,6 +17,7 @@ exports.sendRewardEmail = functions.https.onCall(async (data, context) => {
   
     // console.log(data)
   
+  
     const msg = {
       to: data.toEmail, // Change to your recipient
       from: 'fortunatecookiesrewards@gmail.com', // Change to your verified sender
