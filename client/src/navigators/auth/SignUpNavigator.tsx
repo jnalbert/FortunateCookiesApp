@@ -32,8 +32,8 @@ const SignUpNavigator: FC = () => {
         name="TOS"
         component={TosScreen}
         options={{
-          headerTitle: () => <StackHeader name="" />, 
-          // headerShown: false
+          headerTitle: () => <StackHeader name="Terms Of Service" />, 
+          headerShown: true
         }}
       />
 
