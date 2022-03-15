@@ -247,15 +247,17 @@ export const ClaimReward = async (uuid: string) => {
     const userData: any = await GetProfileData(uuid);
 
     const name = userData.name;
+    const email = userData.email;
     const firstName = name.split(" ")[0];
     const lastName = name.split(" ")[1];
+    
 
 
     // await connectFunctionsEmulator(functions, "192.168.1.74", 5000)
     const sendRewardEmailCF = httpsCallable(functions, "sendRewardEmail");
 
     await sendRewardEmailCF({
-      toEmail: "jnalbert879@gmail.com",
+      toEmail: email,
       firstName: firstName,
       lastName: lastName,
     }).then(() => {
