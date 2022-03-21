@@ -20,7 +20,7 @@ export default {
         ],
         ios: {
           supportsTablet: false,
-          bundleIdentifier: "com.jnalbert.fortunatecookies",
+          bundleIdentifier: "com.jnalbert879.fortunatecookies",
           buildNumber: "1.0.1",
         },
         android: {
