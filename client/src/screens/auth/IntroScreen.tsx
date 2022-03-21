@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { FC, useRef, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import styled from 'styled-components/native';
 import CarouselCardComp from '../../components/authComps/IntroComps/CarouselCardComp';
@@ -83,6 +83,8 @@ const IntroScreen: FC = () => {
     // console.log("here")
   }
 
+  const windowHeight = Dimensions.get('window').width
+
   return (
     <ScreenWrapperComp>
       <CarouselWrapper>
@@ -90,12 +92,11 @@ const IntroScreen: FC = () => {
           layout={"default"}
           ref={carouselRef}
           data={carouselItems}
-          sliderWidth={375}
-          itemWidth={375}
+          sliderWidth={windowHeight}
+          itemWidth={windowHeight}
           // itemHeight={50}
           renderItem={renderCarouselItem}
           onSnapToItem={(index) => { setActiveIndex(index); }}
-          // style={{ height: "50%"}}
           autoplay={true}
           loop={true}
         />
