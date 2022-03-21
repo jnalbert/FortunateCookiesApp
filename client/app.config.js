@@ -19,7 +19,9 @@ export default {
           "**/*"
         ],
         ios: {
-          supportsTablet: false
+          supportsTablet: false,
+          bundleIdentifier: "com.jnalbert.fortunatecookies",
+          buildNumber: "1.0.1",
         },
         android: {
           adaptiveIcon: {
