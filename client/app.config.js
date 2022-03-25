@@ -21,7 +21,7 @@ export default {
         ios: {
           supportsTablet: false,
           bundleIdentifier: "com.jnalbert879.fortunatecookies",
-          buildNumber: "2",
+          buildNumber: "5",
         },
         android: {
           adaptiveIcon: {
