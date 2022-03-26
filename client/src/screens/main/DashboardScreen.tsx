@@ -100,7 +100,7 @@ const DashBoardScreen: FC = () => {
 
       <SectionWrapper>
         <SectionHeaderWrapper>
-          <SectionHeader>Our Company</SectionHeader>
+          <SectionHeader>Our Business</SectionHeader>
         </SectionHeaderWrapper>
         <BodyText>
         Fortunate Cookies looks to reinvent the out-of-touch fortunate cookie designs by putting a new age spin on an old sweet treat. We provide our customers with fun and interesting experiences through both helpful fortunes and pieces of advice. Upon opening our delicious sweet treats, you will feel no other option but to crack open a smile.
