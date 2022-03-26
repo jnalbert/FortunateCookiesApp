@@ -7,18 +7,22 @@ import { Black, FrankFurter, Text300 } from '../../../shared/colors';
 import { useNavigation } from '@react-navigation/native';
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import BasicButton from '../../../shared/BasicButton';
+import { ErrorText } from '../../../shared/Styles';
+import { isCodeValid } from '../../../../firebase/FirestoreFunctions';
 
 
 
 
 
 const CodeInputWrapper = styled.View`
-  
+  justify-content: center;
+  align-items: center;
 `
 
 const HeaderWrapper = styled.View`
   padding-top: 40%;
-  justify-content: center
+  justify-content: center;
+  padding-bottom: 15%;
 `
 
 const HeaderText = styled.Text`
@@ -26,8 +30,15 @@ const HeaderText = styled.Text`
   color: ${Black};
   font-size: 30px;
 `
+
+const ErrorTextWrapper = styled.View`
+  margin-top: 8px;
+`
+
+
 const ButtonWrapper = styled.View`
-  /* padding-top: 10%; */
+
+  padding-top: 10%;
   width: 220px;
   /* width: 100%; */
   justify-content: center;
@@ -41,17 +52,27 @@ const ScanPurchaseScreen: FC = () => {
   const navigator: any = useNavigation()
 
   const [code, setCode] = useState('')
+  const [errorMessage, setErrorMessage] = useState("")
 
   const ProceedToNextScreen = async () => {
+    if (code) {
+      const message = await isCodeValid(code);
+      if (message) { 
+        setErrorMessage(message)
+        return;
+      }
+  
+      navigator.navigate("ConfirmPurchase", code)
+    }
 
+    setErrorMessage("Please enter a code")
+   
     // // *** DEV MODE ***
     // setCode("28239")
     // // TURN OFF WHEN NOT USING
 
     // console.log(code);
-    if (code) {
-      navigator.navigate("ConfirmPurchase", code)
-    }
+    
     
   }
 
@@ -62,7 +83,7 @@ const ScanPurchaseScreen: FC = () => {
       </HeaderWrapper>
       <CodeInputWrapper>
         <OTPInputView
-          style={{ width: "95%", height: 200 }}
+          style={{ width: "95%", height: 100 }}
           pinCount={CODE_LENGTH}
           codeInputHighlightStyle={{
             borderColor: Text300,
@@ -77,6 +98,10 @@ const ScanPurchaseScreen: FC = () => {
           }}
         />
       </CodeInputWrapper>
+
+      <ErrorTextWrapper>
+        <ErrorText>{errorMessage}</ErrorText>
+      </ErrorTextWrapper>
 
       <ButtonWrapper>
         <BasicButton title='Search Reward' onPress={ProceedToNextScreen} style={{width: "100%", height: 50, backgroundColor: "transparent"}} gradient/>

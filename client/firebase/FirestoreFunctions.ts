@@ -146,26 +146,7 @@ const getIndividualCookieData = async (name: string) => {
   return purchaseDoc.data();
 }
 
-export const getPurchaseDataWithCode = async (code: string) => { 
-  try {
-    const purchaseDoc = await getDoc(doc(db, "orders", code));
-    const purchaseData = purchaseDoc.data();
-    // console.log('purchaseData', purchaseData)
-    if (!purchaseData) {
-      return null;
-    }
-    // console.log('purchase data')
-    const productsWithData: any[] = []
-    const products = purchaseData.products;
-    for (let i = 0; i < products.length; i++) {
-      const cookieData = await getIndividualCookieData(products[i]);
-      productsWithData.push({ ...cookieData, date: purchaseData.date})
-    }
-    return productsWithData;
-  } catch (error) {
-    console.log(error);
-  }
-}
+
 
 export const addOrderToProfile = async (uuid: string, orderData: CookieDataType[], code: string) => {
   try {
@@ -178,8 +159,13 @@ export const addOrderToProfile = async (uuid: string, orderData: CookieDataType[
 
     const date = orderData[0].date;
 
-    const purchaseDoc = await getDoc(doc(db, "orders", code));
+    const codeDoc = doc(db, "orders", code)
+    const purchaseDoc = await getDoc(codeDoc);
     const purchaseData = purchaseDoc.data()
+
+    await updateDoc(codeDoc, {
+      collected: true
+    })
 
     const returnProducts = []
     for (let i = 0; i < purchaseData?.products.length; i++) { 
@@ -190,6 +176,8 @@ export const addOrderToProfile = async (uuid: string, orderData: CookieDataType[
     }
 
     // console.log(returnProducts)
+
+
 
     const userDoc = doc(db, "users", uuid);
     await updateDoc(userDoc, {
@@ -235,6 +223,38 @@ export const getAllCookieData = async (uuid: string) => {
   } catch (error) {
     console.log(error)
   }
+}
+
+export const getPurchaseDataWithCode = async (code: string) => { 
+  try {
+    const purchaseDoc = await getDoc(doc(db, "orders", code));
+    const purchaseData = purchaseDoc.data();
+    // console.log('purchaseData', purchaseData)
+    if (!purchaseData) {
+      return null;
+    }
+    // console.log('purchase data')
+    const productsWithData: any[] = []
+    const products = purchaseData.products;
+    for (let i = 0; i < products.length; i++) {
+      const cookieData = await getIndividualCookieData(products[i]);
+      productsWithData.push({ ...cookieData, date: purchaseData.date})
+    }
+    return productsWithData;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const isCodeValid = async (code: string) => { 
+  const purchaseDoc = await getDoc(doc(db, "orders", code));
+  const purchaseData = purchaseDoc.data();
+  if (!purchaseData?.collected) return null;
+  return "This code has already been used";
+}
+
+export const codeClaimed = async (code: string) => { 
+
 }
 
 export const ClaimReward = async (uuid: string) => {
