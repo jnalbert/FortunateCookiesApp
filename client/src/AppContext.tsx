@@ -6,7 +6,7 @@ import { SignInFormProps } from "./screens/auth/SignInScreen";
 import { SignUpFormProps } from "./screens/auth/SignUpScreen";
 import { setItemAsync, getItemAsync, deleteItemAsync } from "expo-secure-store";
 import { Auth } from '../config/firebase';
-import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInAnonymously, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, deleteUser, sendPasswordResetEmail, signInAnonymously, signInWithEmailAndPassword } from "firebase/auth";
 import { addNewAccountToDB } from "../firebase/FirestoreFunctions";
 
 export interface AuthTypes {
@@ -118,9 +118,20 @@ export const useMemoFunction = (dispatch: any, state: any) => ({
     return null;
     
   },
-  signOut: () => {
-    dispatch({ type: "SIGN_OUT" })
+  signOut: async () => {
 
+    dispatch({ type: "SIGN_OUT" })
+    
+
+    try {
+      if (await isAnonymous()) {
+        const user = Auth.currentUser;
+        await deleteUser(user as any)
+      }
+    } catch (error) {
+      console.log('error', error)
+    }
+    
     try {
       Auth.signOut()
     } catch (error) {
