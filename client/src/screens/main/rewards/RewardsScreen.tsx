@@ -101,7 +101,7 @@ const RewardsScreen: FC<any> = ({}) => {
   const GetCookiesRef = useRef(null) as any
 
   return (
-    <ScreenWrapperComp scrollView refreshControl={
+    <ScreenWrapperComp isScreenProtected scrollView refreshControl={
       <RefreshControl refreshing={isRefreshing} onRefresh={async () => {
         await GetPoints()
         GetCookiesRef?.current()

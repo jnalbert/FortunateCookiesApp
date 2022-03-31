@@ -95,6 +95,10 @@ const ProfileScreen: FC<any> = ({navigation}) => {
     // console.log(uuid, "stored")
 
     const res = await GetProfileData(uuid || "");
+
+    // console.log(res, "res");
+
+    if (!res) return;
     
     const rawData = { name: res?.name, email: res?.email, dateJoined: new Date(res?.dateJoined).toString(), totalCookiesPurchased: res?.totalCookiesPurchased, totalRewardsEarned: res?.totalPointsEarned, totalPointsEarned: res?.totalRewardsEarned }
     const { name, email, dateJoined, totalCookiesPurchased, totalRewardsEarned, totalPointsEarned } = rawData;
@@ -171,7 +175,7 @@ const ProfileScreen: FC<any> = ({navigation}) => {
   };
   
   return (
-    <ScreenWrapperComp scrollView refreshControl={
+    <ScreenWrapperComp isScreenProtected scrollView refreshControl={
       <RefreshControl
       refreshing={isRefreshing}
       onRefresh={onRefresh}

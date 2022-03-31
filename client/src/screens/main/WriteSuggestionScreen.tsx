@@ -5,7 +5,7 @@ import ScreenWrapperComp from '../../shared/ScreenWrapperComp';
 
 const WriteSuggestionScreen: FC = () => {
   return (
-    <ScreenWrapperComp >
+    <ScreenWrapperComp isScreenProtected scrollView>
       <ContactComp header={"Write A Suggestion"} subHeader="We value your feedback!" type='suggestion'/>
     </ScreenWrapperComp>
   )

@@ -56,11 +56,13 @@ export const SubmitButtonWrapper = styled.View`
   margin-right: 35px; 
 `
 
+
+
 export const FooterWrapper = styled.View`
   align-items: flex-end;
   justify-content: flex-start;
   width: 85%;
-  padding-bottom: 15%;
+  /* padding-bottom: 5%; */
   flex-direction: row;
   flex: 1;
 `
@@ -72,6 +74,11 @@ export const FooterText = styled.Text`
   line-height: 27px;
 `
 
+export const GuestWrapper = styled.TouchableOpacity`
+  width: 85%;
+  flex-direction: row;
+  justify-content: flex-start; 
+`
 
 export interface SignInFormProps {
   email: string;
@@ -81,7 +88,7 @@ export interface SignInFormProps {
 
 const SignInScreen: FC<any> = ({ navigation }) => {
   
-  const { signIn } = useContext(AuthContext);
+  const { signIn, guestSignIn } = useContext(AuthContext);
 
   const {
     control,
@@ -107,6 +114,10 @@ const SignInScreen: FC<any> = ({ navigation }) => {
 
   const SignUpPress = () => { 
     navigation.navigate('SignUpNav')
+  }
+
+  const LoginAsGuest = async () => {
+    await guestSignIn()
   }
 
   return (
@@ -148,6 +159,7 @@ const SignInScreen: FC<any> = ({ navigation }) => {
         </SmallInfo>
       </TouchableOpacity>
 
+
       <SubmitButtonWrapper>
         <CircleButton onPress={handleSubmit(onSubmit)} />
       </SubmitButtonWrapper>
@@ -158,6 +170,12 @@ const SignInScreen: FC<any> = ({ navigation }) => {
           <FooterText style={{ color: Teal, textDecorationLine: "underline" }}> Sign up</FooterText> 
         </TouchableOpacity>
       </FooterWrapper>
+
+      <GuestWrapper onPress={LoginAsGuest}>
+          <SmallInfo>
+            Continue as a guest
+          </SmallInfo>
+        </GuestWrapper>
     </ScreenWrapperComp>
   )
 }

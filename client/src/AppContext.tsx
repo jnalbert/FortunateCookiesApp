@@ -6,7 +6,7 @@ import { SignInFormProps } from "./screens/auth/SignInScreen";
 import { SignUpFormProps } from "./screens/auth/SignUpScreen";
 import { setItemAsync, getItemAsync, deleteItemAsync } from "expo-secure-store";
 import { Auth } from '../config/firebase';
-import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInAnonymously, signInWithEmailAndPassword } from "firebase/auth";
 import { addNewAccountToDB } from "../firebase/FirestoreFunctions";
 
 export interface AuthTypes {
@@ -20,6 +20,7 @@ export interface AuthContextFunctionTypes {
   signOut: () => void;
   signUp: (data: SignUpFormProps) => Promise<string | null>;
   authValues: AuthTypes;
+  guestSignIn: () => Promise<null>;
 }
 
 const defaultContextValue = {
@@ -30,13 +31,15 @@ const defaultContextValue = {
     isLoading: true,
     isSignout: false,
     userUuid: null
-  }
+  },
+  guestSignIn: async () => { return null; }
 }
 
 export enum actions {
   restoreToken = "RESTORE_TOKEN",
   signIn = "SIGN_IN",
-  signOut = "SIGN_OUT"
+  signOut = "SIGN_OUT",
+  guestSignIn = "GUEST_SIGN_IN",
 }
 
 interface actionType {
@@ -66,6 +69,11 @@ export const authReducer = (prevState: AuthTypes, action: actionType) => {
         isSignout: true,
         userUuid: null,
       };
+    case "GUEST_SIGN_IN":
+      return {
+        ...prevState,
+        userUuid: "guest"
+      }
     default:
       return {
         ...prevState
@@ -74,6 +82,13 @@ export const authReducer = (prevState: AuthTypes, action: actionType) => {
 }
 
 export const useMemoFunction = (dispatch: any, state: any) => ({
+
+  guestSignIn: async () => { 
+    await signInAnonymously(Auth)
+    dispatch({ type: "GUEST_SIGN_IN" });
+    return null;
+  },
+
   signIn: async (data: SignInFormProps) => {
     // In a production app, we need to send some data (usually username, password) to server and get a token
     // We will also need to handle errors if sign in failed
@@ -154,7 +169,7 @@ export const useMemoFunction = (dispatch: any, state: any) => ({
     }
 
     // THis is dev stuff comment when done
-    dispatch({ type: "SIGN_IN", token: "Dev" });
+    // dispatch({ type: "SIGN_IN", token: "Dev" });
 
     return null;
 
@@ -202,6 +217,11 @@ const _storeUuid = async (uuid: string) => {
   } catch (error) {
     console.log(error)
   }
+}
+
+export const isAnonymous = async () => {
+  const user = Auth.currentUser
+  return user?.isAnonymous
 }
 
 export const _getStoredUuid = async () => {
