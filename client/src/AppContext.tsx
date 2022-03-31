@@ -176,7 +176,7 @@ export const getTokenAsync = async (dispatch: any) => {
         // Turn this off when not in dev mode
         // userUuid = "dev"
 
-        console.log(userUuid, "uuid")
+        // console.log(userUuid, "uuid")
         
         await dispatch({ type: "RESTORE_TOKEN", token: userUuid });
        

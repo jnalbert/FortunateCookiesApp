@@ -1,5 +1,5 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
-import { RefreshControl, View } from 'react-native';
+import { Alert, RefreshControl, View } from 'react-native';
 import { _getStoredUuid, AuthContext } from '../../AppContext';
 import ScreenWrapperComp from '../../shared/ScreenWrapperComp';
 import styled from 'styled-components/native';
@@ -7,7 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { logoutRed, Pink, Poppins, Purple, Text200, Text400 } from '../../shared/colors';
 import BasicButton from '../../shared/BasicButton';
 import ProfileInfoSection from '../../components/mainComps/Settings/ProfileInfoSection';
-import { GetProfileData } from '../../../firebase/FirestoreFunctions';
+import { deleteAccount, GetProfileData } from '../../../firebase/FirestoreFunctions';
 
 
 const Thumbnail = styled.View`
@@ -68,10 +68,10 @@ const ChangePasswordWrapper = styled.View`
 `
 
 const LogoutButtonWrapper = styled.View`
-  padding-top: 8%;
-  margin-bottom: 15px;
+  padding-top: 5%;
   width: 97%;
 `
+
 
 interface UserInfoType {
   name: string;
@@ -92,7 +92,7 @@ const ProfileScreen: FC<any> = ({navigation}) => {
     // get data from api
     setIsRefreshing(true);
     const uuid = await _getStoredUuid();
-    console.log(uuid, "stored")
+    // console.log(uuid, "stored")
 
     const res = await GetProfileData(uuid || "");
     
@@ -120,11 +120,16 @@ const ProfileScreen: FC<any> = ({navigation}) => {
   }
 
   const getThumbnailInitials = (name: string) => {
-    const splitString = name.split(" ")
-    const firstInitial = splitString[0].substring(0, 1);
-    const lastInitial = splitString[1].substring(0, 1);
+    try {
+      const splitString = name.split(" ")
+      const firstInitial = splitString[0].substring(0, 1);
+      const lastInitial = splitString[1].substring(0, 1);
 
-    setInitials({firstInitial: firstInitial, lastInitial: lastInitial})
+      setInitials({firstInitial: firstInitial, lastInitial: lastInitial})
+    } catch (error) {
+      setInitials({firstInitial: "", lastInitial: ""})
+    }
+    
   }
 
   const handleChangePassword = () => {
@@ -136,8 +141,34 @@ const ProfileScreen: FC<any> = ({navigation}) => {
   }
 
   const handleLogout = () => {
-    console.log(signOut())
+    signOut();
   }
+  
+  const handleDeleteAccount = async () => {
+    const uuid = await _getStoredUuid();
+    deleteAccount(uuid as string);
+  }
+
+  const deleteAccountAlert = () => {
+    Alert.alert(
+      "Are you sure?",
+      "This will permanently delete your account and it will not be recoverable",
+      [
+        {
+          text: "No",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: () => {
+            handleDeleteAccount();
+          },
+          style: "destructive"
+        },
+      ]
+    );
+  };
   
   return (
     <ScreenWrapperComp scrollView refreshControl={
@@ -178,6 +209,10 @@ const ProfileScreen: FC<any> = ({navigation}) => {
 
       <LogoutButtonWrapper>
         <BasicButton style={{backgroundColor: "transparent", borderColor: logoutRed, borderWidth: 2, height: 56, width: "98%"}} buttonTextStyle={{color: logoutRed}} title="Sign Out" onPress={handleLogout}/>
+      </LogoutButtonWrapper>
+
+      <LogoutButtonWrapper>
+        <BasicButton style={{backgroundColor: logoutRed, borderColor: logoutRed, borderWidth: 2, height: 56, width: "98%"}} buttonTextStyle={{}} title="Delete Your Account" onPress={deleteAccountAlert}/>
       </LogoutButtonWrapper>
       
     </ScreenWrapperComp>

@@ -4,7 +4,7 @@ export default {
     expo: {
         name: "Fortunate Cookies",
         slug: "fortunatecookies",
-        version: "1.0.1",
+        version: "1.0.2",
         orientation: "portrait",
         icon: "./assets/SmallLogo.png",
         splash: {
@@ -21,7 +21,7 @@ export default {
         ios: {
           supportsTablet: false,
           bundleIdentifier: "com.jnalbert879.fortunatecookies",
-          buildNumber: "5",
+          buildNumber: "2",
         },
         android: {
           adaptiveIcon: {

@@ -1,8 +1,8 @@
-import { Auth, db, functions, storage } from "../config/firebase";
+import { Auth, db, functions, storage } from '../config/firebase';
 import { UserTypeClient, NewsCardTypeDB } from './types/MiscTypes';
-import { setDoc, doc, collection, getDoc, getDocs, updateDoc, increment, addDoc } from "firebase/firestore"; 
+import { setDoc, doc, collection, getDoc, getDocs, updateDoc, increment, addDoc, deleteDoc } from "firebase/firestore"; 
 import { getDownloadURL, listAll, ref } from "firebase/storage";
-import { reauthenticateWithCredential, signInWithEmailAndPassword, updatePassword } from "firebase/auth";
+import { deleteUser, getAuth, reauthenticateWithCredential, signInWithEmailAndPassword, updatePassword } from "firebase/auth";
 import { CookieDataType } from "../src/components/mainComps/Rewards/CookiePurchaseSection";
 import { connectFunctionsEmulator, httpsCallable } from "firebase/functions";
 
@@ -297,4 +297,21 @@ export const ClaimReward = async (uuid: string) => {
   } catch (error) {
     console.log(error)
   }
+}
+
+export const deleteAccount = async (uuid: string) => { 
+  const auth = getAuth();
+  const user = auth.currentUser;
+  deleteUser(user as any).then(() => {
+    // console.log("delted")
+  }).catch((error) => {
+    console.log('error', error)
+  });
+
+  try {
+    await deleteDoc(doc(db, "users", uuid));
+  } catch (error) {
+    
+  }
+
 }
