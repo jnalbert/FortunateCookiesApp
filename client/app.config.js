@@ -4,7 +4,7 @@ export default {
     expo: {
         name: "Fortunate Cookies",
         slug: "fortunatecookies",
-        version: "1.0.2",
+        version: "1.0.3",
         orientation: "portrait",
         icon: "./assets/SmallLogo.png",
         splash: {
